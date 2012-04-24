@@ -1,0 +1,23 @@
+html, body, ul, ul li { margin:0; padding:0; }
+
+body { font-family: Verdana, sans-serif; background:#000; }
+
+#cr-stage { margin:4px auto; }
+
+#menu { width:1024px; margin:0px auto; }
+
+	#message { color:#fff; height:30px; padding-top:6px; font-weight:bold; font-weight:bold; }
+
+	#buttons { }
+	
+		#buttons ul li { display:inline; color:#fff; margin-right:8px; }
+
+.item, #buttons ul li { cursor:pointer; }
+
+#buttons ul li:hover { cursor:pointer; color:yellow; }
+
+.pocket{ cursor:default; border:1px solid #000; }
+
+.Dialogue { font-weight:bold; }
+
+
