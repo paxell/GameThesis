@@ -130,6 +130,7 @@ Crafty.c("WalkTo", {
 			didMove = true;
 			this._flipX = true;
 			
+			//make sure walking destination is within the boundary
 			if(-Crafty.viewport.x > this.boundary.minX) 
 				Crafty.viewport.x += this.speed;
 				
@@ -158,6 +159,7 @@ Crafty.c("WalkTo", {
 	
 	setTarget: function(x, y) {
 		this.moving = true;
+		//set midpoint of player
 		this.target.x = x - this.w / 2;
 		this.target.y = y - this.h;
 		
@@ -179,8 +181,9 @@ Crafty.c("WalkTo", {
 
 //TODO next:
 //* keyboard shortcuts for actions
-//* move inventory to jQuery
-//* Fix dialogue!!!
+//* move inventory to jQuery. items defined in each scene, becomes global when added to inventory
+//* Better system for dialogue incl. choices
+//* Make doors have x, y, width and height as values
 
 //NOTEs:
 //DOM is better for when less animation also better for mobile devices

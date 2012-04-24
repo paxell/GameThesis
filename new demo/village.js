@@ -11,6 +11,7 @@ Crafty.scene("Village", function() {
 		y: 100
 	});
 	
+	//Set the player's walkable boundaries in every scene
 	Player.boundary.minY = 400;
 	Player.boundary.maxX = 1600;
 	
