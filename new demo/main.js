@@ -28,7 +28,7 @@ window.onload = function() {
 		
 		//Global Entities
 		
-		Player = Crafty.e("2D, Canvas, open, SpriteAnimation, Persist, Tween, MoveTo")
+		Player = Crafty.e("2D, Canvas, open, SpriteAnimation, Persist, WalkTo")
 			.animate("blink", 0, 0, 1)
 			.bind("EnterFrame", function(e) {
 				//blink every 50th - 60th frame
@@ -76,11 +76,19 @@ window.onload = function() {
 			}
 		});
 		
-		DialogueBar = Crafty.e("Dialogue")
+		DialogueBar = Crafty.e("Dialogue");
+		
+		Crafty.addEvent(this, Crafty.stage.elem, "click", function(e) {
+			var pos = Crafty.DOM.translate(e.clientX, e.clientY);
+			console.log(pos);
+			
+			if(SELECTED === WALK_TO) {
+				Player.setTarget(pos.x, pos.y);
+			}
+		});
 		
 		//Load the first scene
 		Crafty.scene("Village");
-		
 	});
 };
 
@@ -95,19 +103,84 @@ Crafty.c("Door", {
 	}
 });
 		
+Crafty.c("WalkTo", {
+	init: function() {
+		this.speed = 4;
+		this.target = {x: 0, y: 0};
+		this.moving = false;
+		this.boundary = {
+			minX: 0,
+			maxX: Crafty.viewport.width,
+			minY: 0,
+			maxY: Crafty.viewport.height
+		};
 		
+		this.bind("EnterFrame", this._enterframe);
+	},
+	
+	_enterframe: function() {
+		if(!this.moving) return;
+		
+		var EP = this.speed,
+			didMove = false;
+		
+		if(this._x - this.target.x > EP) {
+			//console.log("MOVE LEFT", this._x - this.target.x);
+			this.x -= this.speed;
+			didMove = true;
+			this._flipX = true;
+			
+			if(-Crafty.viewport.x > this.boundary.minX) 
+				Crafty.viewport.x += this.speed;
+				
+		} else if(this._x - this.target.x < -EP) {
+			//console.log("MOVE RIGHT", this._x - this.target.x);
+			this.x += this.speed;
+			didMove = true;
+			this._flipX = false;
+			
+			if(-Crafty.viewport.x + Crafty.viewport.width < this.boundary.maxX) 
+				Crafty.viewport.x -= this.speed;
+				
+		} else if(this._y - this.target.y > EP) {
+			//console.log("MOVE UP", this._y - this.target.y);
+			this.y -= this.speed;
+			didMove = true;
+			
+		} else if(this._y - this.target.y < -EP) {
+			//console.log("MOVE DOWN", this._y - this.target.y);
+			this.y += this.speed;
+			didMove = true;
+		}
+		
+		if(!didMove) this.moving = false;
+	},
+	
+	setTarget: function(x, y) {
+		this.moving = true;
+		this.target.x = x - this.w / 2;
+		this.target.y = y - this.h;
+		
+		//keep target in boundary
+		this.checkBoundary();
+	},
+	
+	checkBoundary: function() {
+		this.target.x = Math.min(this.target.x, this.boundary.maxX - this.w / 2);
+		this.target.x = Math.max(this.target.x, this.boundary.minX - this.w / 2);
+		this.target.y = Math.min(this.target.y, this.boundary.maxY - this.h);
+		this.target.y = Math.max(this.target.y, this.boundary.minY - this.h);
+	},
+	
+	stopMoving: function() {
+		this.moving = false;
+	}
+});		
 
 //TODO next:
-//* Better system for changing text on the menu bar (too easy?)
-//* Add some basic dialogue interactions - how to sequence and animate conversations?
-//* Split files! 1 for each scene, main file for the rest (global stuff like inventory, player, buttons (?)
-//* Walk to mouse selection
+//* keyboard shortcuts for actions
+//* move inventory to jQuery
+//* Fix dialogue!!!
 
 //NOTEs:
 //DOM is better for when less animation also better for mobile devices
-
-//define walkable area in every scene
-//keyboard shortcuts for actions
-
-//move inventory to jQuery
-//Fix dialogue!!!

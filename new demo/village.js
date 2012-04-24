@@ -3,7 +3,7 @@ Crafty.scene("Village", function() {
 	
 	//add crafty.load for images/assets for this scene
 	
-	Crafty.e("2D, Canvas, Image").image("images/village.png");
+	var bg = Crafty.e("2D, Canvas, Image").image("images/village.png");
 	
 	Player.attr({
 		visible: true,
@@ -11,9 +11,7 @@ Crafty.scene("Village", function() {
 		y: 100
 	});
 	
-	barDoor = Crafty.e("Door")
-		.makeDoor(function() {
-			Crafty.scene("Cantina");
-		});
+	Player.boundary.minY = 400;
+	Player.boundary.maxX = 1600;
 	
 });
