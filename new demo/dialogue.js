@@ -13,7 +13,8 @@ var DIALOGUE = {
 				[
 					{txt: "I need help. I have to leave the planet.", next: "Answers:0"},
 					{txt: "Just came in for a drink.", next: "Answers:1"},
-					{txt: "I'm looking for someone.", next: "Answers:2"}
+					{txt: "I'm looking for someone.", next: "Answers:2"},
+					{txt: "Nevermind."},
 				]
 			],
 			Answers: [

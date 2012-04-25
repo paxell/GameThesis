@@ -1,20 +1,66 @@
-function Dialogue(script, start) {
-	this.script = script;
-	this.start = start || "Player:0";
-	this.current = this.parse(this.start);
-}
-
-Dialogue.prototype = {
-	parse: function(cmd) {
-		var cmds = cmd.split(":");
+Crafty.c("Dialogue", {
+	Dialogue: function(script, start) {
+		this.script  	 = script;
+		this.start	 	 = start || "Player:0";
+		this.currentLine = this.parse(this.start);
 		
-		return this.script[cmds[0]][+cmds[1]];
+		return this;
 	},
 	
-	next: function() {
-		this.current = this.parse(this.current.next);
+	//changes data format into something usable
+	parse: function(cmd) {
+		
+		var cmds = cmd.split(":");
+		var result = this.script[cmds[0]][+cmds[1]];
+		
+		return result;
+		//needs if statement? for if another array is returned: eg choices
+		//display choices as clickable link times like controls
+		//controls disappear if within choices?
+		//also needs to look for something that stops the conversation. (elseif?)
+	},
+	
+	nextLine: function() {
+		//if there is a next line specified, goto it
+		if(this.currentLine.next) {
+			this.currentLine = this.parse(this.currentLine.next);
+			
+			//trigger the change event
+			this.trigger("DialogueChange");
+		} //if there is no next (and not a choices array) end dialogue 
+		else if(this.currentLine.length === undefined) {
+			this.trigger("DialogueEnd");
+		}
+	},
+	
+	fillChoices: function(choices) {
+		var html = "";
+		var self = this; //save the current context (value of `this`)
+		
+		//show choices box
+		$("#choices").show();
+		
+		//loop over choices array
+		for(var i = 0; i < choices.length; ++i) {
+			//generate HTML
+			html += '<div class="choice">' + choices[i].txt + '</div>';
+		}
+		
+		//update choices with new html
+		$("#choices").html(html);
+		
+		//user clicked on a choice
+		$("#choices .choice").click(function() {
+			var idx = $(this).index(); //the index of the choice
+			
+			//set the current line to whatever the choice leads to
+			self.currentLine = self.parse(choices[idx].next);
+			
+			//trigger a change event to update the dialogue on screen
+			self.trigger("DialogueChange");
+		});
 	}
-};
+});
 
 //Start of the tavern scene
 Crafty.scene("Cantina", function() {
@@ -28,7 +74,8 @@ Crafty.scene("Cantina", function() {
 	
 	var sceneScript = DIALOGUE.Cantina;
 	
-	Barman = Crafty.e("2D, Canvas, bopen, SpriteAnimation, Mouse")
+	Barman = Crafty.e("2D, Canvas, bopen, SpriteAnimation, Mouse, Dialogue")
+			.Dialogue(sceneScript.Barman)
 			.animate("blink", 0, 0, 1)
 			.bind("EnterFrame", function(e) {
 				//blink every 50th - 60th frame
@@ -48,26 +95,25 @@ Crafty.scene("Cantina", function() {
 			//first line of dialogue
 			.bind('Click', function(e) {
 				if (SELECTED == TALK_TO) {
-					this.index = 0
-					if(!this.dialogue)
-						this.dialogue = new Dialogue(sceneScript.Barman, "Player:0");
-					
-					console.log(this.dialogue.current.txt);
-					DialogueBar.replaceText(this.dialogue.current.txt);
-					
-					this.dialogue.next();
+					this.nextLine();
 				}
 			})
 			//rest of dialogue
 			.bind('KeyDown', function(e) {
 				if(e.key == Crafty.keys['ENTER']) {
-					DialogueBar.replaceText(this.dialogue.current.txt);
-					
-					this.dialogue.next();
+					this.nextLine();
 				}
-				if(this.index == 6) {
-					Item.attr({visible:true});
+			})
+			.bind("DialogueChange", function() {
+				if(this.currentLine.length) {
+					this.fillChoices(this.currentLine);
+				} else {
+					DialogueBar.replaceText(this.currentLine.txt);
 				}
+			})
+			.bind("DialogueEnd", function() {
+				//DIALOGUE IS OVER!
+				console.log("THANKS FOR THE CHAT");
 			});
 	
 	Player.attr({

@@ -60,7 +60,9 @@ window.onload = function() {
 			SELECTED = WALK_TO;
 		});
 		
-		Crafty.c("Dialogue", {
+		//Change to HTML/jQuery rather than on the canvas - scrolls with the viewport!
+		//also animate when it appears?
+		Crafty.c("DialogueBar", {
 			init: function() {
 				this.addComponent("2D, DOM, Text, Persist");
 				this.attr({y: 100, x: 200, w: 400, h: 100, visible: false})
@@ -76,11 +78,11 @@ window.onload = function() {
 			}
 		});
 		
-		DialogueBar = Crafty.e("Dialogue");
+		DialogueBar = Crafty.e("DialogueBar");
 		
 		Crafty.addEvent(this, Crafty.stage.elem, "click", function(e) {
 			var pos = Crafty.DOM.translate(e.clientX, e.clientY);
-			console.log(pos);
+			//console.log(pos);
 			
 			if(SELECTED === WALK_TO) {
 				Player.setTarget(pos.x, pos.y);

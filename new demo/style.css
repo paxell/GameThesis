@@ -4,20 +4,28 @@ body { font-family: Verdana, sans-serif; background:#000; }
 
 #cr-stage { margin:4px auto; }
 
+/*UI STYLES-------------------------------------------------------------*/
+
 #menu { width:1024px; margin:0px auto; }
 
 	#message { color:#fff; height:30px; padding-top:6px; font-weight:bold; font-weight:bold; }
 
-	#buttons { }
+	#buttons, #choices, #inventory { float:left; }
 	
-		#buttons ul li { display:inline; color:#fff; margin-right:8px; }
+	#buttons { width:300px; }
+	
+		#buttons ul li { float:left; color:#fff; margin-right:8px; width:80px; list-style-type:none; text-align:center; margin-bottom:8px; }
+	
+	#choices, #inventory { width:600px; }
+	
+	#buttons ul li:hover { cursor:pointer; color:yellow; }
 
-.item, #buttons ul li { cursor:pointer; }
-
-#buttons ul li:hover { cursor:pointer; color:yellow; }
+.item:hover { cursor:pointer; }
 
 .pocket{ cursor:default; border:1px solid #000; }
 
 .Dialogue { font-weight:bold; }
+
+#choices {display:none; color: white}
 
 
