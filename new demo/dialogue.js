@@ -23,7 +23,7 @@ var DIALOGUE = {
 					{txt: "Some people don't want to be found."}
 			]
 		}
-	}
+	},
 	
 	Temple: {
 		Priestess: {
@@ -57,15 +57,9 @@ var items = {
 
 }
 
-//Notes:
-//difference between conversations and choice-based dialogue
-//won't be able to abstract logic, indexes of dialogue will have to be hard coded into scenes
+//Notes/to do:
 //observations about objects, places or characters
 //item descriptions
 //dialogue left aligned for main character, right aligned for character to talk to
-//need a separate dialog 'mode'
-//choice of dialog
-//goto: callback
 //choices and answers together?
 //dialogue - timing? choice of enter key or wait
-//can it be restricted to one answer per choice so that the 

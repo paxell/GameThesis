@@ -2,7 +2,8 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="http://craftyjs.com/release/0.4.7/crafty-min.js" type="text/javascript"></script>
+	<!--casuing an error? <script src="http://craftyjs.com/release/0.4.7/crafty-min.js" type="text/javascript"></script>-->
+	<script src="crafty-min.js" type="text/javascript"></script>
 	<script src="jquery.hotkeys.js" type="text/javascript"></script>
 	<script src="dialogue.js" type="text/javascript"></script>
 	<script src="main.js" type="text/javascript"></script>
@@ -22,14 +23,14 @@
 	<div id="message"></div>
 	<div id="buttons">
 		<ul>
-			<li id="pickup">Pick up</li>
-			<li id="talkto">Talk to</li>
-			<li id="walkto">Walk to</li>
+			<li id="pickup"><span class="short">P</span>ick up</li>
+			<li id="talkto"><span class="short">T</span>alk to</li>
+			<li id="walkto"><span class="short">W</span>alk to</li>
 		</ul>
 		<ul>
-			<li id="lookat">Look at</li>
-			<li id="open">Open</li>
-			<li id="give">Give</li>
+			<li id="lookat"><span class="short">L</span>ook at</li>
+			<li id="open"><span class="short">O</span>pen</li>
+			<li id="give"><span class="short">G</span>ive</li>
 		</ul>
 	</div>
 	<div id="inventory"></div>

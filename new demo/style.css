@@ -22,6 +22,8 @@ body { font-family: Verdana, sans-serif; background:#000; }
 
 .item:hover, .choice:hover { cursor:pointer; }
 
+.short { text-decoration: underline; }
+
 .pocket{ cursor:default; border:1px solid #000; }
 
 .Dialogue { font-weight:bold; }

@@ -20,7 +20,6 @@ Crafty.scene("Cantina", function() {
 			.Dialogue(sceneScript.Barman)
 			.animate("blink", 0, 0, 1)
 			.bind("EnterFrame", function(e) {
-				//blink every 50th - 60th frame
 				if(e.frame % 80 > 0 && e.frame % 80 < 10) {
 					this.sprite(1, 0, 1, 1);
 				} else {
@@ -40,7 +39,7 @@ Crafty.scene("Cantina", function() {
 					this.nextLine();
 				}
 			})
-			//rest of dialogue
+			//rest of dialogue - could this go in the component?
 			.bind('KeyDown', function(e) {
 				if(e.key == Crafty.keys['ENTER']) {
 					this.nextLine();
@@ -48,6 +47,7 @@ Crafty.scene("Cantina", function() {
 			})
 			.bind("DialogueChange", function() {
 				if(this.currentLine.length) {
+					//only if there are choices
 					this.fillChoices(this.currentLine);
 				} else {
 					DialogueBar.replaceText(this.currentLine.txt);
@@ -69,7 +69,7 @@ Crafty.scene("Cantina", function() {
 	Barman.attr({
 		visible: true,
 		x: 610,
-		y: 180
+		y: 180,
 	});
 	
 	//Door to the Village scene
@@ -77,29 +77,4 @@ Crafty.scene("Cantina", function() {
 	   Crafty.scene("Village");
 	});
 	
-	//using DOM for now, there's a bug with Canvas
-	//move this to the main file!
-	Item = Crafty.e("2D, DOM, item, half, Mouse").attr({
-			visible:false,
-			y: 274, 
-			x: 364
-		})
-		.bind('MouseOver', function(e) {
-			$("#message").text(SELECTED + "item");
-		})
-		.bind('MouseOut', function(e) {
-			$("#message").text(SELECTED);
-		})
-		.bind('Click', function(e) {
-			if (SELECTED == TALK_TO) {
-				this.attr({
-					x: 450,
-					y: 700
-				});
-			};
-			this.removeComponent("half");
-			this.addComponent("pocket");
-			//adds a reference to this item to the inventory array
-			Inventory.inv.push(this);
-		});
 });

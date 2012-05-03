@@ -48,11 +48,10 @@ window.onload = function() {
 			})
 			.attr({visible: false, z: 100});
 		
-		Inventory = Crafty.e("2D, Canvas, Persist")
-			//use maths to center the menu
-			.attr({y: 768 - 105, x: (1024 - 765) / 2, visible: false, inv: []});
+		Inventory = $("#inventory")
+			.attr({inv: []});
 			
-		//Initialise buttons
+		//Initialise action buttons
 		PickUp = $("#pickup").click(function() {
 			$("#message").text("Pick up");
 			SELECTED = PICK_UP;
@@ -63,23 +62,17 @@ window.onload = function() {
 			SELECTED = TALK_TO;
 		});
 		
-		/*WalkTo = $("#walkto").click(function() {
+		WalkTo = $("#walkto").click(function() {
 			$("#message").text("Walk to");
 			SELECTED = WALK_TO;
-		});*/
-		
-		//example using keyboard shortcut (jquery hotkeys) - can it bind on both events?
-		WalkTo = $(document).bind('keydown', 'w', function() {
-			$("#message").text("Walk to");
-			SELECTED = WALK_TO;
-		});
+		})
 		
 		LookAt = $("#lookat").click(function() {
 			$("#message").text("Look at");
 			SELECTED = LOOK_AT;
 		});
 		
-		WalkTo = $("#open").click(function() {
+		Open = $("#open").click(function() {
 			$("#message").text("Open");
 			SELECTED = OPEN;
 		});
@@ -89,8 +82,31 @@ window.onload = function() {
 			SELECTED = GIVE;
 		});
 		
-		//DIALOGUE COMPONENT
-		//TO DO:
+		//Enable keyboard shortcuts
+		$(document).keydown(function(e) {
+			switch(e.keyCode) {
+				case 80: //P
+					$("#pickup").trigger("click");
+					break;
+				case 84: //T
+					$("#talkto").trigger("click");
+					break;
+				case 87: //W
+					$("#walkto").trigger("click");
+					break;
+				case 76: //L
+					$("#lookat").trigger("click");
+					break;
+				case 79: //O
+					$("#open").trigger("click");
+					break;
+				case 71: //G
+					$("#give").trigger("click");
+					break;
+			}
+		});
+		
+		//DIALOGUE COMPONENT TO DO:
 		//* choices need to disappear once chosen
 		//* DialogueEnd needs to work
 		
@@ -164,7 +180,6 @@ window.onload = function() {
 				this.addComponent("2D, DOM, Text, Persist");
 				this.attr({y: 100, x: 200, w: 400, h: 100, visible: false})
 			},
-			//can use the same name for function in a different component
 			replaceText: function(txt) {
 				this.text(txt);
 				return this;
@@ -177,6 +192,7 @@ window.onload = function() {
 		
 		DialogueBar = Crafty.e("DialogueBar");
 		
+		//Walking event
 		Crafty.addEvent(this, Crafty.stage.elem, "click", function(e) {
 			var pos = Crafty.DOM.translate(e.clientX, e.clientY);
 			
@@ -206,9 +222,36 @@ Crafty.c("Door", {
             if(SELECTED == OPEN)
                 $("#message").text("Open door");      
         });
+		this.bind("MouseOut", function() {
+            $("#message").text(SELECTED);      
+        });
         this.attr({w: w, h: h, x: x, y: y});
     }
 });
+
+//Item component under construction
+/*Crafty.c("Item", {
+    init: function() {
+        this.addComponent("2D, DOM, item, half, Mouse, Debug, Persist");
+		this.attr({visible: false})
+    },
+	
+	parse: function() {
+		//find item description etc in the JSON file
+	
+	showItem: function() {
+		//display the item (if certain conditions are met?)
+	}
+	
+	lookatItem: function() {
+		//
+	}
+	
+	pickupItem: function() {
+		//if (SELECTED == PICK_UP)
+		//Inventory.inv.push(this);
+	}
+});*/
 
 //Note: character keeps moving even if gone to the next scene	
 Crafty.c("WalkTo", {
@@ -243,7 +286,7 @@ Crafty.c("WalkTo", {
 				Crafty.viewport.x += this.speed;	
 		} 
 		
-		//if player is to the left of the target, move it to
+		//if player is to the left of the target, move it to the right
 		if(this._x - this.target.x < -EP) {
 			this.x += this.speed;
 			didMove = true;
@@ -276,6 +319,7 @@ Crafty.c("WalkTo", {
 		//keep target in boundary
 		this.checkBoundary();
 		
+		//Needs walking sprite
 		//Player.animate("walk", 2, 3);
 	},
 	
@@ -291,14 +335,3 @@ Crafty.c("WalkTo", {
 		this.moving = false;
 	}
 });	
-
-	
-
-//TODO next:
-//* keyboard shortcuts for actions
-//* move inventory to jQuery. items defined in each scene, becomes global when added to inventory
-//* Better system for dialogue incl. choices
-//* Make doors have x, y, width and height as values
-
-//NOTEs:
-//DOM is better for when less animation also better for mobile devices.
