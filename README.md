@@ -21,3 +21,5 @@ Demo
 ------------
 
 At present the game is only in a demo stage, but watch this space as final artwork and story for the first stage of the game are currently in development.
+
+You can view the latest demo here: http://paxelated.com/gamethesis2/ (hint: so far you can walk, open doors, and talk to a character through the end door)
