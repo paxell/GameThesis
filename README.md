@@ -7,6 +7,8 @@ The game is in the style of a point-and-click adventure and aims to address some
 
 The game utilises the Javascript game framework Crafty (https://github.com/craftyjs/Crafty).
 
+The latest game prototype can be found here: http://paxelated.com/anotherworld/
+
 Framework
 -----------
 
@@ -15,11 +17,9 @@ The Framework consists of a few main components (watch this space for updates):
 * WalkTo component for player movement, including scrolling the viewport with the character's movement
 * Dialogue component for interacting with other characters, reading the dialogue from a JSON file
 * Doors for moving between scenes
-
+* Item component for picking up and giving items (under construction)
 
 Demo
 ------------
-
-At present the game is only in a demo stage, but watch this space as final artwork and story for the first stage of the game are currently in development.
 
 You can view the latest demo here: http://paxelated.com/gamethesis2/ (hint: so far you can walk, open doors, and talk to a character through the end door)
