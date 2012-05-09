@@ -101,7 +101,6 @@ window.onload = function() {
 		
 		//DIALOGUE COMPONENT TO DO:
 		//* choices need to disappear once chosen
-		//* DialogueEnd needs to work
 		
 		Crafty.c("Dialogue", {
 			Dialogue: function(script, start) {
@@ -151,6 +150,7 @@ window.onload = function() {
 				//update choices with new html
 				$("#choices").html(html);
 				$("#buttons").css('display', 'none');
+				$("#inventory").css('display', 'none');
 				
 				//user clicked on a choice
 				$("#choices .choice").click(function() {
@@ -166,12 +166,10 @@ window.onload = function() {
 			}
 		});
 		
-		
-		//also animate when it appears?
 		Crafty.c("DialogueBar", {
 			init: function() {
 				this.addComponent("2D, DOM, Text, Persist");
-				this.attr({y: 100, x: 200, w: 400, h: 100, visible: false})
+				this.attr({y: 274, x: 0, w: 768, h: 14, visible: false});
 			},
 			replaceText: function(txt) {
 				this.text(txt);
@@ -183,6 +181,23 @@ window.onload = function() {
 			}
 		});
 		
+		Crafty.c("HelpText", {
+			init: function() {
+				this.addComponent("2D, DOM, Text, Persist");
+				this.attr({y: 274, x: 700, w: 68, h: 14, visible: false});
+				this.text("[Press Enter to Continue]");
+			},
+			replaceText: function(txt) {
+				this.text(txt);
+				return this;
+			},
+			addText: function(txt) {
+				this.text(this._text + txt);
+				return this;
+			}
+		});
+		
+		HelpText = Crafty.e("HelpText");
 		DialogueBar = Crafty.e("DialogueBar");
 		
 		//Walking event

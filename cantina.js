@@ -11,10 +11,11 @@ Crafty.scene("Cantina", function() {
 	
 	Crafty.e("2D, Canvas, Image").image("images/cantina.png");
 	
-	//Inventory.visible = true;	
+	//Inventory.visible = true;
+	HelpText.visible = true;
 	DialogueBar.visible = true;
 	
-	coinAge = Crafty.e("Item, coins")
+	/*coinAge = Crafty.e("Item, coins")
 		.attr({visible:true})
 		//.showItem(145, 458)
 		.bind('MouseOver', function(e) {
@@ -25,12 +26,13 @@ Crafty.scene("Cantina", function() {
 		})
 		.bind('Click', function(e) {
 			Item.pickupItem();
-		});
+		});*/
 	
 	var sceneScript = DIALOGUE.Cantina;
 	
 	Barman = Crafty.e("2D, Canvas, bopen, SpriteAnimation, Mouse, Dialogue")
 			.Dialogue(sceneScript.Barman)
+			//.css({z-index: '100'})
 			.animate("blink", 0, 0, 1)
 			.bind("EnterFrame", function(e) {
 				if(e.frame % 80 > 0 && e.frame % 80 < 10) {
@@ -49,6 +51,7 @@ Crafty.scene("Cantina", function() {
 			//first line of dialogue
 			.bind('Click', function(e) {
 				if (SELECTED == TALK_TO) {
+					DialogueBar.css({background: '#fff', padding: '8px'})
 					this.nextLine();
 				}
 			})
@@ -69,6 +72,10 @@ Crafty.scene("Cantina", function() {
 			.bind("DialogueEnd", function() {
 				//DIALOGUE IS OVER!
 				console.log("THANKS FOR THE CHAT");
+				DialogueBar.replaceText("");
+				$("#choices").hide();
+				$("#buttons").css('display', 'block');
+				$("#inventory").css('display', 'block');
 			});
 	
 	Player.attr({
