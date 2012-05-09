@@ -181,7 +181,7 @@ window.onload = function() {
 			}
 		});
 		
-		Crafty.c("HelpText", {
+		/*Crafty.c("HelpText", {
 			init: function() {
 				this.addComponent("2D, DOM, Text, Persist");
 				this.attr({y: 274, x: 700, w: 68, h: 14, visible: false});
@@ -197,7 +197,7 @@ window.onload = function() {
 			}
 		});
 		
-		HelpText = Crafty.e("HelpText");
+		HelpText = Crafty.e("HelpText");*/
 		DialogueBar = Crafty.e("DialogueBar");
 		
 		//Walking event

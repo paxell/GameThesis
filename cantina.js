@@ -12,7 +12,7 @@ Crafty.scene("Cantina", function() {
 	Crafty.e("2D, Canvas, Image").image("images/cantina.png");
 	
 	//Inventory.visible = true;
-	HelpText.visible = true;
+	//HelpText.visible = true;
 	DialogueBar.visible = true;
 	
 	/*coinAge = Crafty.e("Item, coins")
