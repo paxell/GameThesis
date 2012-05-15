@@ -32,7 +32,7 @@ body { font-family: 'Averia Libre', Georgia, serif; font-weight:300; background:
 
 .Dialogue, #message { font-weight:700; }
 
-/*.Debug { border: 1px solid red }*/
+.Debug { border: 1px solid red }
 
 #choices {display:none; color: white}
 

@@ -1,4 +1,31 @@
 var DIALOGUE = {
+
+	Village: {
+		Seller: {
+			Player: [
+					{txt: "Hello, my name is Sol", next: "Seller:0"},
+					{txt: "What do you sell?", next: "Seller:1"}			
+			],
+			Seller: [
+					{txt: "What's it to me? Do you want to buy anything?", next: "Player:1"}, 
+					{txt: "Food and water. You'll need it for a long journey.", next: "Choices:0"}
+			],
+			Choices: [
+				[
+					{txt: "I'm not making a long journey.", next: "Answers:0"},
+					{txt: "Do lots of people make journeys from here?", next: "Answers:1"},
+					{txt: "I'm interested in getting some food and water.", next: "Answers:2"},
+					{txt: "Nevermind."}
+				]
+			],
+			Answers: [
+					{txt: "That's not what I heard."},
+					{txt: "More and more recently. But what can I say, I'm an opportunist."},
+					{txt: "Give me any money you have and I'll see what I can do."}
+			]
+		}
+	},
+	
 	Cantina: {
 		Barman: {
 			Player: [
@@ -52,14 +79,13 @@ var DIALOGUE = {
 	}
 }
 
-var items = {
-	
-
+var ITEMS = {
+	coins: ["It's a handful of coins, a few credits' worth", "That looks about right."],
+	opal: ["This is worth a lot of money.", "This will buy you passage to Odor."]
 }
 
 //Notes/to do:
-//observations about objects, places or characters
-//item descriptions
-//dialogue left aligned for main character, right aligned for character to talk to
-//choices and answers together?
+//observations about objects, places or characters - new component for object of interest? similar to door
+//item descriptions linked to items
+//dialogue left aligned for main character, right aligned for character to talk to or ideally 2 separate containers - too complicated?
 //dialogue - timing? choice of enter key or wait
