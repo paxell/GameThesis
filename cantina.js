@@ -122,12 +122,11 @@ Crafty.scene("Cantina", function() {
 		});
 		
 		coinAge.attr({
-			visible: true,
-			name: "coins"
+			name: "coins",
+			visible:true
 		});
 		
 		opalAge.attr({
-			visible: false,
 			name: "opal"
 		});
 		

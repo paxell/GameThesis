@@ -19,7 +19,7 @@ The Framework consists of a few main components (watch this space for updates):
 * Doors for moving between scenes
 * Item component for picking up and giving items (under construction)
 
-Demo
+BugWorld
 ------------
 
-You can view the latest demo here: http://paxelated.com/gamethesis2/ (hint: so far you can walk, open doors, and talk to a character through the end door)
+A progress demo of the game (warts and all) can be found here: http://paxelated.com/bugworld/

@@ -16,6 +16,7 @@ Crafty.c("Item", {
 	//figure out why this isn't working
     showItem: function(x, y) {
         this.attr({x: x, y: y, visible:true});
+		return this;
     },
 	
 	pickupItem: function() {
@@ -36,8 +37,9 @@ Crafty.c("Item", {
     lookatItem: function() {
 		//make these global to the component since the text will be used in other function(s)?
 		//reference doesn't work - works if add the title explicitly
-		//var itemStuff = this.name;
-		var itemText = ITEMS.coins;
+		
+		var itemStuff = this.name;
+		var itemText = ITEMS[itemStuff];
 		
 		var itemDesc = itemText[0];
 		
