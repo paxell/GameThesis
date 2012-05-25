@@ -22,7 +22,7 @@ Crafty.scene("Temple", function() {
 	//this shouldn't be needed but it is..
 	Player.boundary.maxX = 	1039;
 
-	Crafty.load(["images/priestess.png", "images/worshipper.png"], function() {
+	Crafty.load(["images/priestess.png", "images/worshipper.png", "images/temple.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/temple.png");
 		
@@ -79,7 +79,7 @@ Crafty.scene("Temple", function() {
 		Player.attr({
 			visible: true,
 			x: 83,
-			y: 68
+			y: 40
 		});
 		
 		Priestess.attr({
@@ -91,8 +91,8 @@ Crafty.scene("Temple", function() {
 		
 		Worshipper.attr({
 			visible: true,
-			x: 596,
-			y: 158,
+			x: 265,
+			y: 140,
 			name: "Selise"
 		});
 		
