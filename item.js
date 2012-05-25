@@ -1,8 +1,9 @@
 //ITEM COMPONENT
 Crafty.c("Item", {
+	
     init: function() {
 		//canvas or DOM?
-        this.addComponent("2D, Canvas, Mouse, Persist");
+        this.addComponent("2D, DOM, Mouse");
         this.attr({visible: false});
         this.name = "";
 		this.bind('MouseOver', function(e) {
@@ -10,18 +11,19 @@ Crafty.c("Item", {
 		})
 		this.bind('MouseOut', function(e) {
 			$("#message").text(SELECTED);
-		})
+		});
+		pickedUp = false;
     },
     
 	//figure out why this isn't working
-    showItem: function(x, y) {
+    /*showItem: function(x, y) {
         this.attr({x: x, y: y, visible:true});
 		return this;
-    },
+    },*/
 	
 	pickupItem: function() {
         if(SELECTED == PICK_UP) {
-            
+		
 			//save the position/index in the inv array
 			Inventory.inv.push(this);
             //this.pos = Inventory.inv.push(this) - 1;
@@ -31,12 +33,54 @@ Crafty.c("Item", {
 			
 			//add as a li to the inventory
 			$('#inventory ul').append('<li id="' + this.name + '"><img src="' + this.__image + '"></li>');
+			
+			pickedUp = true;
+			
 		}
+		
+		if (pickedUp = true) {
+			this.giveItem();
+		}
+		
     },
-    
-    lookatItem: function() {
+
+	giveItem: function() {
+	//giveItem: function(to, callback) {	
+	
+        if (SELECTED == GIVE) {
+				
+			var itemName = this.name;
+			var itemUI = $("#inventory ul li#" + itemName);
+			
+			//register the item in the UI as clicked and prompt user to select the recipient
+			itemUI.click(function() {
+				$("#message").text(SELECTED + itemName + "to ");
+				console.log("UI item clicked");
+			});
+			
+			/*
+			//to is the name of the character, to.accepts is the name of the item the character accepts
+			//need player to click the character after selecting the item, only then will it be given
+			if (to.accepts == this.name) {        
+				callback();
+				
+				//remove from the position
+				Inventory.inv.splice(this.pos, 1);
+				
+				//remove from the UI
+				$('#inventory ul').detach(itemUI);
+			}
+			else {
+				DialogueBar.replaceText("I don't think so");
+			}*/
+			
+		}
+		
+		return this;
+    },
+	
+	lookatItem: function() {
 		//make these global to the component since the text will be used in other function(s)?
-		//reference doesn't work - works if add the title explicitly
 		
 		var itemStuff = this.name;
 		var itemText = ITEMS[itemStuff];
@@ -45,36 +89,6 @@ Crafty.c("Item", {
 		
         if (SELECTED == LOOK_AT) {
 			console.log(itemDesc);
-		}
-    },
-
-    giveItem: function(to, callback) {
-		
-		var self = this;
-		
-        if (SELECTED == GIVE) {
-			
-			//problem: the item is now in the UI - check if works
-			//reset this to the item in the UI
-			self = $('#inventory ul li #' + this.name + '');
-			
-			//prompt user to select the recipient
-			self.click(function() {
-				$("#message").text(SELECTED + this.name + "to ");
-			});
-			
-            //to is the name of the character, to.accepts is the name of the item the character accepts
-			//need player to click the character first
-            if (to.accepts == this.name) {        
-                callback();
-                //remove from the position
-                Inventory.inv.splice(this.pos, 1);
-				//remove from the UI - check if works
-				$('#inventory ul').detach(self);
-            }
-            else {
-                DialogueBar.replaceText("I don't think so");
-			}
 		}
     }
     

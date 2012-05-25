@@ -1,5 +1,7 @@
 var DIALOGUE = {
 
+//note currently the dialogue component skips the first line!
+
 	Village: {
 		Seller: {
 			Player: [
@@ -7,7 +9,7 @@ var DIALOGUE = {
 					{txt: "What do you sell?", next: "Seller:1"}			
 			],
 			Seller: [
-					{txt: "What's it to me? Do you want to buy anything?", next: "Player:1"}, 
+					{txt: "Do you want to buy something?", next: "Player:1"}, 
 					{txt: "Food and water. You'll need it for a long journey.", next: "Choices:0"}
 			],
 			Choices: [
@@ -23,6 +25,16 @@ var DIALOGUE = {
 					{txt: "More and more recently. But what can I say, I'm an opportunist."},
 					{txt: "Give me any money you have and I'll see what I can do."}
 			]
+		},
+		Guard: {
+			Player: [
+					{txt: "Hello, my name is Sol", next: "Guard:0"},
+					{txt: "What? How do you know me?", next: "Guard:1"}			
+			],
+			Guard: [
+					{txt: "I know who  you are. and I think I know why you are here.", next: "Player:1"}, 
+					{txt: "I heard you are trying to leave. I've got my eye on you."}
+			],
 		}
 	},
 	

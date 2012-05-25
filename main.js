@@ -103,6 +103,8 @@ window.onload = function() {
 				//default start point
 				this.start	 	 = start || "Player:0";
 				this.currentLine = this.parse(this.start);
+				//help text - can wrap a span around it to display this differently?
+				//this.helpText = " (Press ENTER to continue or ESC to exit dialogue)";
 				return this;
 			},
 			
@@ -119,9 +121,16 @@ window.onload = function() {
 					this.currentLine = this.parse(this.currentLine.next);
 					//trigger the change event
 					this.trigger("DialogueChange");
+					//displays help text in the message bar but disappears when choices appear
+					//$("#message").text(SELECTED + this.name + this.helpText);
+					$("#buttons").css('display', 'none');
+					$("#inventory").css('display', 'none');
 				} //if there is no next (and not a choices array) end dialogue 
 				else if(this.currentLine.length === undefined) {
 					this.trigger("DialogueEnd");
+					$("#message").text(SELECTED + this.name);
+					$("#buttons").css('display', 'block');
+					$("#inventory").css('display', 'block');
 				}
 			},
 			
@@ -139,8 +148,6 @@ window.onload = function() {
 				
 				//update choices with new html
 				$("#choices").html(html);
-				$("#buttons").css('display', 'none');
-				$("#inventory").css('display', 'none');
 				
 				//user clicked on a choice
 				$("#choices .choice").click(function() {
@@ -161,9 +168,11 @@ window.onload = function() {
 		
 		//dialogue bar
 		Crafty.c("DialogueBar", {
-			init: function() {
-				this.addComponent("2D, DOM, Text, Persist");
-				this.attr({y: 274, x: 0, w: 768, h: 14, visible: false});
+			init: function(x, y) {
+				this.addComponent("2D, DOM, Text");
+				//will need more dynamic values for x and y
+				this.attr({x: x, y: y, w: (Crafty.viewport.width / 3), h: 40, visible: false});
+				this.css({background: '#fff', padding: '8px', opacity: 0.6, border: '2px solid #000'})
 			},
 			replaceText: function(txt) {
 				this.text(txt);
@@ -188,7 +197,7 @@ window.onload = function() {
 		});
 		
 		//load the first scene
-		Crafty.scene("Cantina");
+		Crafty.scene("Village");
 		
 	});//end Crafty load
 	
@@ -206,12 +215,13 @@ Crafty.c("Door", {
             }
         });
         this.bind("MouseOver", function() {
-            if(SELECTED == OPEN)
-                $("#message").text("Open door");      
+            //if(SELECTED == OPEN)
+			$("#message").text(SELECTED + "door");      
         });
 		this.bind("MouseOut", function() {
             $("#message").text(SELECTED);      
         });
         this.attr({w: w, h: h, x: x, y: y});
     }
+	//add function for locked door
 });

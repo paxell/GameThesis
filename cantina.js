@@ -3,6 +3,13 @@ Crafty.sprite(116, 145, "images/bman.png", {
 	bopen: [0,0],
 	bclosed: [1,0]
 });
+Crafty.sprite(151, 270, "images/smuggler.png", {
+	sopen: [0,0],
+	sclosed: [1,0]
+});
+Crafty.sprite(70, 179, "images/patron.png", {
+	drunk: [0,0]
+});
 Crafty.sprite(32, 32, "images/item-coins.png", {
 	coins: [0,0],
 });
@@ -24,16 +31,15 @@ Crafty.scene("Cantina", function() {
 	//this shouldn't be needed but it is..
 	Player.boundary.maxX = 1001;
 
-	Crafty.load(["images/cantina.png", "images/bman.png", "images/item-coins.png"], function() {
+	Crafty.load(["images/cantina.png", "images/bman.png", "images/smuggler.png", "images/patron.png", "images/item-coins.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/cantina.png");
 		
-		//initialise dialogue entities
-		DialogueBar.visible = true;		
+		//initialise dialogue entities	
 		var sceneScript = DIALOGUE.Cantina;
 		
 		//Barman character
-		Barman = Crafty.e("2D, Canvas, bopen, SpriteAnimation, Mouse, Dialogue")
+		Barman = Crafty.e("Character, bopen")
 				.Dialogue(sceneScript.Barman)
 				.animate("blink", 0, 0, 1)
 				.bind("EnterFrame", function(e) {
@@ -43,17 +49,10 @@ Crafty.scene("Cantina", function() {
 						this.sprite(0, 0, 1, 1);
 					}
 				})
-				.attr({visible: false})
-				.bind('MouseOver', function(e) {
-					$("#message").text(SELECTED + "barman");
-				})
-				.bind('MouseOut', function(e) {
-					$("#message").text(SELECTED);
-				})
 				//first line of dialogue
 				.bind('Click', function(e) {
 					if (SELECTED == TALK_TO) {
-						DialogueBar.css({background: '#fff', padding: '8px'})
+						DialogueBar.attr({x: Player.x, y: 0, visible:true});
 						this.nextLine();
 					}
 				})
@@ -78,7 +77,24 @@ Crafty.scene("Cantina", function() {
 					$("#buttons").css('display', 'block');
 					$("#inventory").css('display', 'block');
 				});
+				
+		//Smuggler character
+		Smuggler = Crafty.e("Character, sopen")
+				//.Dialogue(sceneScript.Smuggler)
+				.animate("blink", 0, 0, 1)
+				.bind("EnterFrame", function(e) {
+					if(e.frame % 70 > 0 && e.frame % 70 < 10) {
+						this.sprite(1, 0, 1, 1);
+					} else {
+						this.sprite(0, 0, 1, 1);
+					}
+				});
+				
+		//Drunk character
+		Drunk = Crafty.e("Character, drunk");
+				//.Dialogue(sceneScript.Drunk)
 		
+		/*
 		//initialise coins item
 		coinAge = Crafty.e("Item, coins")
 			//.showItem(145, 458)
@@ -87,24 +103,17 @@ Crafty.scene("Cantina", function() {
 			})
 			.bind('Click', function(e) {
 				this.pickupItem();
-			})
-			.bind('Click', function(e) {
-				this.giveItem(Barman, function() {
-					console.log("Gave item");
-				});
 			});
-			
+			/*.giveItem(Barman, function() {
+				console.log("Gave item");
+			});		
 			
 		//initialise opal item
 		opalAge = Crafty.e("Item, opal")
 			.bind('Click', function(e) {
 				this.pickupItem();
-			})
-			.bind('Click', function(e) {
-				this.giveItem(Barman, function() {
-					console.log("Gave item");
-				});
-			})
+			});
+		*/
 			
 		/*----- Initialise Entities -----*/
 		
@@ -119,16 +128,33 @@ Crafty.scene("Cantina", function() {
 			x: 478,
 			y: 12,
 			//accepts: "coins"
+			name: "Arrak"
 		});
 		
-		coinAge.attr({
+		Smuggler.attr({
+			visible: true,
+			x: 784,
+			y: 30,
+			//accepts: "opal"
+			name: "Voler"
+		});
+		
+		Drunk.attr({
+			visible: true,
+			x: 335,
+			y: 22,
+			name: "Barxes"
+		});
+		
+		/*coinAge.attr({
 			name: "coins",
-			visible:true
+			visible:true,
+			//to: "Barman"
 		});
 		
 		opalAge.attr({
 			name: "opal"
-		});
+		});*/
 		
 		Inventory.attr({
 			visible: false

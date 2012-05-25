@@ -1,6 +1,7 @@
 //WALKTO COMPONENT
 //TO DO:
-//fix character keeps moving even if gone to the next scene	
+//fix character keeps moving even if gone to the next scene
+//what if there is a slight difference between the walkable area and the scrollable area? eg cantina
 Crafty.c("WalkTo", {
 	init: function() {
 		this.speed = 4;
