@@ -169,7 +169,7 @@ window.onload = function() {
 		//dialogue bar
 		Crafty.c("DialogueBar", {
 			init: function(x, y) {
-				this.addComponent("2D, DOM, Text");
+				this.addComponent("2D, DOM, Text, Tween");
 				//will need more dynamic values for x and y
 				this.attr({x: x, y: y, w: (Crafty.viewport.width / 3), h: 40, visible: false});
 				this.css({background: '#fff', padding: '8px', opacity: 0.6, border: '2px solid #000'})
@@ -183,9 +183,6 @@ window.onload = function() {
 				return this;
 			}
 		});
-		
-		//initialise dialogue bar
-		DialogueBar = Crafty.e("DialogueBar");
 		
 		//walking event
 		Crafty.addEvent(this, Crafty.stage.elem, "click", function(e) {
@@ -205,7 +202,8 @@ window.onload = function() {
 
 Crafty.c("Door", {
     init: function() {
-        this.addComponent("2D, DOM, Mouse"); 
+        this.addComponent("2D, DOM, Mouse");
+		this.name = "";
     },
 
    makeDoor: function(x, y, w, h, callback) {
@@ -216,7 +214,7 @@ Crafty.c("Door", {
         });
         this.bind("MouseOver", function() {
             //if(SELECTED == OPEN)
-			$("#message").text(SELECTED + "door");      
+			$("#message").text(SELECTED + this.name);      
         });
 		this.bind("MouseOut", function() {
             $("#message").text(SELECTED);      

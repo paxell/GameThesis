@@ -29,6 +29,10 @@ Crafty.scene("Temple", function() {
 		//initialise dialogue entities	
 		var sceneScript = DIALOGUE.Temple;
 		
+		//initialise dialogue bar
+		DialogueBar = Crafty.e("DialogueBar")
+				.attr({visible: false});
+		
 		//Worshipper character
 		Worshipper = Crafty.e("Character, bow")
 				.animate("bow", 0, 0, 1)
@@ -48,7 +52,7 @@ Crafty.scene("Temple", function() {
 				//first line of dialogue
 				.bind('Click', function(e) {
 					if (SELECTED == TALK_TO) {
-						DialogueBar.attr({x: Player.x, y: 0, visible:true}); 
+						DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
 						//skips the first line - fix or work around?
 						this.nextLine();
 					}
@@ -101,9 +105,11 @@ Crafty.scene("Temple", function() {
 		});
 		
 		//Door to the Village scene
-		villageDoor = Crafty.e("Door").makeDoor(27, 61, 89, 178, function() {
-		   Crafty.scene("Village");   
-		});
+		villageDoor = Crafty.e("Door")
+			.attr({name: "village door"})
+			.makeDoor(27, 61, 89, 178, function() {
+			   Crafty.scene("Village");   
+			});
 		
 	});//end load
 	

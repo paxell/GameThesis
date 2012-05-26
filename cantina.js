@@ -38,6 +38,10 @@ Crafty.scene("Cantina", function() {
 		//initialise dialogue entities	
 		var sceneScript = DIALOGUE.Cantina;
 		
+		//initialise dialogue bar
+		DialogueBar = Crafty.e("DialogueBar")
+				.attr({visible: false});
+		
 		//Barman character
 		Barman = Crafty.e("Character, bopen")
 				.Dialogue(sceneScript.Barman)
@@ -52,7 +56,7 @@ Crafty.scene("Cantina", function() {
 				//first line of dialogue
 				.bind('Click', function(e) {
 					if (SELECTED == TALK_TO) {
-						DialogueBar.attr({x: Player.x, y: 0, visible:true});
+						DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0});
 						this.nextLine();
 					}
 				})
@@ -104,7 +108,7 @@ Crafty.scene("Cantina", function() {
 			.bind('Click', function(e) {
 				this.pickupItem();
 			});
-			/*.giveItem(Barman, function() {
+			.giveItem(Barman, function() {
 				console.log("Gave item");
 			});		
 			
@@ -127,7 +131,7 @@ Crafty.scene("Cantina", function() {
 			visible: true,
 			x: 478,
 			y: 12,
-			//accepts: "coins"
+			accepts: "coins",
 			name: "Arrak"
 		});
 		
@@ -135,7 +139,7 @@ Crafty.scene("Cantina", function() {
 			visible: true,
 			x: 784,
 			y: 30,
-			//accepts: "opal"
+			accepts: "opal",
 			name: "Voler"
 		});
 		
@@ -149,7 +153,7 @@ Crafty.scene("Cantina", function() {
 		/*coinAge.attr({
 			name: "coins",
 			visible:true,
-			//to: "Barman"
+			to: "Barman"
 		});
 		
 		opalAge.attr({
@@ -161,10 +165,11 @@ Crafty.scene("Cantina", function() {
 		});
 		
 		//Door to the Village scene
-		villageDoor = Crafty.e("Door").makeDoor(14, 44, 76, 118, function() {
-		   Crafty.scene("Village");
-		   
-		});
+		villageDoor = Crafty.e("Door")
+			.attr({name: "village door"})
+			.makeDoor(14, 44, 76, 118, function() {
+				Crafty.scene("Village");
+			});
 		
 	});//end load
 	

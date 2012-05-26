@@ -28,6 +28,10 @@ Crafty.scene("Village", function() {
 		//initialise script		
 		var sceneScript = DIALOGUE.Village;
 		
+		//initialise dialogue bar
+		DialogueBar = Crafty.e("DialogueBar")
+				.attr({visible: false});
+		
 		//Guard character
 		Guard = Crafty.e("Character, guard")
 				//.Dialogue(sceneScript.Guard)
@@ -48,7 +52,7 @@ Crafty.scene("Village", function() {
 				.bind('Click', function(e) {
 					if (SELECTED == TALK_TO) {
 						//this.start;
-						DialogueBar.attr({x: Player.x, y: 0, visible:true}); 
+						DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
 						//skips the first line - fix or work around?
 						this.nextLine();
 					}
@@ -56,6 +60,7 @@ Crafty.scene("Village", function() {
 				//rest of dialogue - could this go in the component?
 				.bind('KeyDown', function(e) {
 					if(e.key == Crafty.keys['ENTER']) {
+						
 						/*
 						//change x depending on who is speaking - only works once so far - reference to dialogue key is probably wrong
 						if(sceneScript.Seller == Seller || sceneScript.Seller == Answers) {
@@ -63,10 +68,12 @@ Crafty.scene("Village", function() {
 						}
 						else {
 							DialogueBar.attr({x: Player.x});
-						}
-						*/
-						this.nextLine();						
+						}*/
+						
+						this.nextLine();
+											
 					}
+					
 					/*
 					//need better method for escape - inside component?
 					else if(e.key == Crafty.keys['ESC']) {
@@ -92,7 +99,7 @@ Crafty.scene("Village", function() {
 		
 		Player.attr({
 			visible: true,
-			x: 130,
+			x: 55,
 			y: 90
 		});
 		
@@ -111,27 +118,46 @@ Crafty.scene("Village", function() {
 			name: "Alaine"
 		});
 		
-		/*Locked guard door
-		guardDoor = Crafty.e("Door").makeDoor(181, 95, 91, 184, function() {
-		   DialogueBar.attr({x: Player.x, y: 0, visible:true}); 
-		   DialogueBar.replaceText("This door is locked.");
-		   DialogueBar.tween({visible: false}, 300);
-		});*/
+		//Front gate
+		gateDoor = Crafty.e("Door")
+			.attr({name: "village gate"})
+			.makeDoor(0, 26, 106, 262, function() {
+			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.replaceText("I can't go back to where I came from.");
+			   DialogueBar.tween({alpha: 0.0}, 80);
+			});
+		
+		//Locked guard door
+		guardDoor = Crafty.e("Door")
+			.attr({name: "guard door"})
+			.makeDoor(181, 95, 91, 184, function() {
+			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.replaceText("This door is locked.");
+			   DialogueBar.tween({alpha: 0.0}, 80);
+			});	
+		
+		//Goverment office - opening soon (?)
+		govDoor = Crafty.e("Door")
+			.attr({name: "office door"})
+			.makeDoor(397, 53, 165, 185, function() {
+			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.replaceText("This government office is closed.");
+			   DialogueBar.tween({alpha: 0.0}, 80);
+			});
 		
 		//Door to the Temple scene
-		govDoor = Crafty.e("Door").makeDoor(712, 0, 93, 135, function() {
-		   Crafty.scene("Temple");
-		});
-		
-		//Door to the Temple scene
-		cantinaDoor = Crafty.e("Door").makeDoor(712, 0, 93, 135, function() {
-		   Crafty.scene("Temple");
-		});
+		templeDoor = Crafty.e("Door")
+			.attr({name: "temple door"})
+			.makeDoor(712, 0, 93, 135, function() {
+			   Crafty.scene("Temple");
+			});
 		
 		//Door to the Cantina scene
-		cantinaDoor = Crafty.e("Door").makeDoor(1364, 94, 138, 211, function() {
-		   Crafty.scene("Cantina");
-		});
+		cantinaDoor = Crafty.e("Door")
+			.attr({name: "cantina door"})
+			.makeDoor(1364, 94, 138, 211, function() {
+			   Crafty.scene("Cantina");
+			});
 		
 	});//end Crafty load
 	
