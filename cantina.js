@@ -98,7 +98,7 @@ Crafty.scene("Cantina", function() {
 		Drunk = Crafty.e("Character, drunk");
 				//.Dialogue(sceneScript.Drunk)
 		
-		/*
+		
 		//initialise coins item
 		coinAge = Crafty.e("Item, coins")
 			//.showItem(145, 458)
@@ -107,17 +107,16 @@ Crafty.scene("Cantina", function() {
 			})
 			.bind('Click', function(e) {
 				this.pickupItem();
-			});
-			.giveItem(Barman, function() {
-				console.log("Gave item");
-			});		
-			
+			});	
+		
 		//initialise opal item
 		opalAge = Crafty.e("Item, opal")
 			.bind('Click', function(e) {
+				this.lookatItem();
+			})
+			.bind('Click', function(e) {
 				this.pickupItem();
 			});
-		*/
 			
 		/*----- Initialise Entities -----*/
 		
@@ -150,15 +149,20 @@ Crafty.scene("Cantina", function() {
 			name: "Barxes"
 		});
 		
-		/*coinAge.attr({
+		coinAge.attr({
 			name: "coins",
 			visible:true,
 			to: "Barman"
 		});
 		
+		
 		opalAge.attr({
-			name: "opal"
-		});*/
+			name: "opal",
+			visible:true,
+			x: 335,
+			y: 22,
+			to: "Seller"
+		});
 		
 		Inventory.attr({
 			visible: false

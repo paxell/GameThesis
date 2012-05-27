@@ -10,7 +10,18 @@ Crafty.c("Character", {
 		})
 		this.bind('MouseOut', function(e) {
 			$("#message").text(SELECTED);
-		});
+		})
+		this.bind('Click', function(e) {
+			console.log("Selected character");
+            if ((SELECTED == GIVE_TO) && (selectedGift.name == this.accepts)) {
+                selectedGift.giveItem(this);
+				console.log("Gave item");
+            } /*else {
+				DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+				DialogueBar.replaceText("Can't accept that");
+				DialogueBar.tween({alpha: 0.0}, 80);
+            }*/
+        });
     },
     
 });

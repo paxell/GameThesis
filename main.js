@@ -5,7 +5,10 @@ TALK_TO = "Talk to ";
 WALK_TO = "Walk to ";
 LOOK_AT = "Look at ";
 OPEN = "Open ";
-GIVE = "Give ";
+GIVE_TO = "Give ";
+
+//no item is selected yet
+var selectedGift = null;
 
 window.onload = function() {
 	
@@ -34,11 +37,19 @@ window.onload = function() {
 			})
 			.attr({visible: false, z: 100});
 			
-		//initialise inventory	
-		//Idea: use jQuery carousel for lots of items?
+		//initialise inventory
 		Inventory = Crafty.e("2D, Canvas, menu, Persist")
 			.attr({visible: false, inv: []});
-			
+
+		//initialise UI item - need live because it might not exist when the page loads
+		itemUI = $("#inventory ul li").live("click", function() {
+			var id = $(this).index();
+			//save the gift in a global var
+			selectedGift = Inventory.inv[id];
+			$("#message").text(SELECTED + selectedGift.name + " to");
+			console.log(selectedGift);
+		});
+		
 		//initialise action buttons
 		PickUp = $("#pickup").click(function() {
 			$("#message").text("Pick up");
@@ -67,7 +78,7 @@ window.onload = function() {
 		
 		Give = $("#give").click(function() {
 			$("#message").text("Give");
-			SELECTED = GIVE;
+			SELECTED = GIVE_TO;
 		});
 		
 		//enable keyboard shortcuts
@@ -194,7 +205,7 @@ window.onload = function() {
 		});
 		
 		//load the first scene
-		Crafty.scene("Village");
+		Crafty.scene("Cantina");
 		
 	});//end Crafty load
 	
