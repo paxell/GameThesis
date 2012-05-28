@@ -46,7 +46,9 @@ window.onload = function() {
 			var id = $(this).index();
 			//save the gift in a global var
 			selectedGift = Inventory.inv[id];
-			$("#message").text(SELECTED + selectedGift.name + " to");
+			if (SELECTED == GIVE_TO) {
+				$("#message").text(SELECTED + selectedGift.name + " to ");
+			}
 			console.log(selectedGift);
 		});
 		
@@ -114,8 +116,6 @@ window.onload = function() {
 				//default start point
 				this.start	 	 = start || "Player:0";
 				this.currentLine = this.parse(this.start);
-				//help text - can wrap a span around it to display this differently?
-				//this.helpText = " (Press ENTER to continue or ESC to exit dialogue)";
 				return this;
 			},
 			
@@ -133,7 +133,6 @@ window.onload = function() {
 					//trigger the change event
 					this.trigger("DialogueChange");
 					//displays help text in the message bar but disappears when choices appear
-					//$("#message").text(SELECTED + this.name + this.helpText);
 					$("#buttons").css('display', 'none');
 					$("#inventory").css('display', 'none');
 				} //if there is no next (and not a choices array) end dialogue 

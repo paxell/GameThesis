@@ -21,6 +21,8 @@ Crafty.scene("Temple", function() {
 	Player.boundary.minY = 250;
 	//this shouldn't be needed but it is..
 	Player.boundary.maxX = 	1039;
+	
+	Player.moving = false;
 
 	Crafty.load(["images/priestess.png", "images/worshipper.png", "images/temple.png"], function() {
 		

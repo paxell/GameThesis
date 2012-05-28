@@ -48,7 +48,7 @@ Crafty.c("Item", {
 		
 		//remove from the UI - broken
 		//$('#inventory ul').remove("li#" + self.name);
-		("li#" + self.name).remove();
+		$("li#" + self.name).remove();
 	},
 	
 	lookatItem: function() {

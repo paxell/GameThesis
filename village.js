@@ -21,6 +21,8 @@ Crafty.scene("Village", function() {
 	//this shouldn't be needed but it is..
 	Player.boundary.maxX = 1517;
 	
+	Player.moving = false;
+	
 	Crafty.load(["images/village.png", "images/seller.png", "images/guard.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/village.png");
@@ -47,52 +49,6 @@ Crafty.scene("Village", function() {
 					} else {
 						this.sprite(0, 0, 1, 1);
 					}
-				})
-				//first line of dialogue
-				.bind('Click', function(e) {
-					if (SELECTED == TALK_TO) {
-						//this.start;
-						DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
-						//skips the first line - fix or work around?
-						this.nextLine();
-					}
-				})
-				//rest of dialogue - could this go in the component?
-				.bind('KeyDown', function(e) {
-					if(e.key == Crafty.keys['ENTER']) {
-						
-						/*
-						//change x depending on who is speaking - only works once so far - reference to dialogue key is probably wrong
-						if(sceneScript.Seller == Seller || sceneScript.Seller == Answers) {
-							DialogueBar.attr({x: Seller.x});
-						}
-						else {
-							DialogueBar.attr({x: Player.x});
-						}*/
-						
-						this.nextLine();
-											
-					}
-					
-					/*
-					//need better method for escape - inside component?
-					else if(e.key == Crafty.keys['ESC']) {
-						DialogueBar.attr({visible: false});
-						$("#choices").hide();					
-					}*/
-				})
-				.bind("DialogueChange", function() {
-					if(this.currentLine.length) {
-						//only if there are choices
-						this.fillChoices(this.currentLine);
-					} else {
-						DialogueBar.replaceText(this.currentLine.txt);
-					}
-				})
-				.bind("DialogueEnd", function() {
-					//get out of dialogue mode - move to component?
-					DialogueBar.attr({visible: false});
-					$("#choices").hide();
 				});
 		
 		/*----- Initialise Entities -----*/

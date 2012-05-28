@@ -30,6 +30,8 @@ Crafty.scene("Cantina", function() {
 	Player.boundary.minY = 275;
 	//this shouldn't be needed but it is..
 	Player.boundary.maxX = 1001;
+	
+	Player.moving = false;
 
 	Crafty.load(["images/cantina.png", "images/bman.png", "images/smuggler.png", "images/patron.png", "images/item-coins.png"], function() {
 		
@@ -52,34 +54,6 @@ Crafty.scene("Cantina", function() {
 					} else {
 						this.sprite(0, 0, 1, 1);
 					}
-				})
-				//first line of dialogue
-				.bind('Click', function(e) {
-					if (SELECTED == TALK_TO) {
-						DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0});
-						this.nextLine();
-					}
-				})
-				//rest of dialogue - could this go in the component?
-				.bind('KeyDown', function(e) {
-					if(e.key == Crafty.keys['ENTER']) {
-						this.nextLine();
-					}
-				})
-				.bind("DialogueChange", function() {
-					if(this.currentLine.length) {
-						//only if there are choices
-						this.fillChoices(this.currentLine);
-					} else {
-						DialogueBar.replaceText(this.currentLine.txt);
-					}
-				})
-				.bind("DialogueEnd", function() {
-					//get out of dialogue mode
-					DialogueBar.attr({visible: false});
-					$("#choices").hide();
-					$("#buttons").css('display', 'block');
-					$("#inventory").css('display', 'block');
 				});
 				
 		//Smuggler character
@@ -95,9 +69,8 @@ Crafty.scene("Cantina", function() {
 				});
 				
 		//Drunk character
-		Drunk = Crafty.e("Character, drunk");
-				//.Dialogue(sceneScript.Drunk)
-		
+		Drunk = Crafty.e("Character, drunk")
+				.Dialogue(sceneScript.Drunk);
 		
 		//initialise coins item
 		coinAge = Crafty.e("Item, coins")

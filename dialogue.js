@@ -3,6 +3,28 @@ var DIALOGUE = {
 //note currently the dialogue component skips the first line!
 
 	Village: {
+		Guard: {
+			Player: [
+					{txt: "Hello, my name is Sol", next: "Seller:0"},
+					{txt: "What do you sell?", next: "Seller:1"}			
+			],
+			Seller: [
+					{txt: "Do you want to buy something?", next: "Player:1"}, 
+					{txt: "Food and water. You'll need it for a long journey.", next: "Choices:0"}
+			],
+			Choices: [
+				[
+					{txt: "Yes. I am leaving the planet.", next: "Answers:0"},
+					{txt: "No, it's just very dusty today.", next: "Answers:1"},
+					{txt: "No, I'm just taking it to get cleaned.", next: "Answers:2"}
+				]
+			],
+			Answers: [
+					{txt: "That's not what I heard."},
+					{txt: "More and more recently. But what can I say, I'm an opportunist."},
+					{txt: "Give me any money you have and I'll see what I can do."}
+			]
+		},
 		Seller: {
 			Player: [
 					{txt: "Hello, my name is Sol", next: "Seller:0"},
@@ -40,6 +62,30 @@ var DIALOGUE = {
 	
 	Cantina: {
 		Barman: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Player:1"},
+					{txt: "Hello, what is your name?", next: "Barman:0"},
+					{txt: "Well met, Arrak. My name is Sol.", next: "Barman:1"}			
+			],
+			Barman: [
+					{txt: "My name is Arrak", next: "Player:2"}, 
+					{txt: "Well met, Sol. What brings you to this place?", next: "Choices:0"}
+			],
+			Choices: [
+				[
+					{txt: "I need help. I have to leave the planet.", next: "Answers:0"},
+					{txt: "Just came in for a drink.", next: "Answers:1"},
+					{txt: "I'm looking for someone.", next: "Answers:2"},
+					{txt: "Nevermind."}
+				]
+			],
+			Answers: [
+					{txt: "Here, take this."},
+					{txt: "What will you have?"},
+					{txt: "Some people don't want to be found."}
+			]
+		},
+		Drunk: {
 			Player: [
 					{txt: "Hello, what is your name?", next: "Barman:0"},
 					{txt: "Well met, Arrak. My name is Sol.", next: "Barman:1"}			
