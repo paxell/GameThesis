@@ -223,6 +223,9 @@ window.onload = function() {
 			}
 		});
 		
+		Crafty.audio.add("bgmusic", "audio/K_Desert_Wanderer_NO_VOCALS.mp3");
+		Crafty.audio.play("bgmusic", -1);
+		
 		//load the first scene
 		Crafty.scene("Village");
 		

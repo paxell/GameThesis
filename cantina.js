@@ -66,6 +66,10 @@ Crafty.scene("Cantina", function() {
 					} else {
 						this.sprite(0, 0, 1, 1);
 					}
+				})
+				.bind('ItemGiven', function() {
+					//if player has food and water in inventory
+					Crafty.scene("Voyage");
 				});
 				
 		//Drunk character
@@ -79,7 +83,7 @@ Crafty.scene("Cantina", function() {
 			})
 			.bind('Click', function(e) {
 				this.pickupItem();
-			});	
+			});
 			
 		/*----- Initialise Entities -----*/
 		

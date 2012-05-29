@@ -22,6 +22,7 @@ Crafty.c("Character", {
 				if (selectedGift.name == this.accepts) {
 					selectedGift.giveItem(this);
 					console.log("Gave item");
+					this.trigger("ItemGiven");
 				} else {
 					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
 					DialogueBar.replaceText("I don't think so");
@@ -52,18 +53,15 @@ Crafty.c("Character", {
 					this.DialogueEnd();
 				};
 			});*/
+			
 		});
-		var self = this;
 		this.bind("DialogueEnd", function() {
 			//get out of dialogue mode
 			DialogueBar.tween({alpha: 0.0}, 80);
 			$("#choices").hide();
 			$("#buttons").css('display', 'block');
 			$("#inventory").css('display', 'block');
-			//this.unbind("DialogueChange");
-			//this.unbind("Click");
-			//try to reset dialogue
-			this.start = "Player:0";
+			//need to reset dialogue
 		});
     }, 
 });

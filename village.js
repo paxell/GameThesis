@@ -9,6 +9,12 @@ Crafty.sprite(65, 95, "images/seller.png", {
 Crafty.sprite(32, 32, "images/item-paper.png", {
 	paper: [0,0]
 });
+Crafty.sprite(32, 32, "images/item-food.png", {
+	food: [0,0]
+});
+Crafty.sprite(32, 32, "images/item-water.png", {
+	water: [0,0]
+});
 
 Crafty.scene("Village", function() {
 
@@ -52,6 +58,10 @@ Crafty.scene("Village", function() {
 					} else {
 						this.sprite(0, 0, 1, 1);
 					}
+				})
+				.bind('ItemGiven', function() {
+					foodItem.attr({visible:true});
+					waterItem.attr({visible:true});
 				});
 				
 		//initialise newspaper item
@@ -63,12 +73,29 @@ Crafty.scene("Village", function() {
 				this.pickupItem();
 			});	
 		
+		//initialise food item
+		foodItem = Crafty.e("Item, food")
+			.bind('Click', function(e) {
+				this.lookatItem();
+			})
+			.bind('Click', function(e) {
+				this.pickupItem();
+			});	
+			
+		//initialise newspaper item
+		waterItem = Crafty.e("Item, water")
+			.bind('Click', function(e) {
+				this.lookatItem();
+			})
+			.bind('Click', function(e) {
+				this.pickupItem();
+			});	
+		
 		/*----- Initialise Entities -----*/
 		
 		Player.attr({
-			visible: true,
-			//x: 55,
-			//y: 90
+			visible: true
+			//x and y come from main depending on which scene player comes from
 		});
 		
 		Guard.attr({
@@ -88,10 +115,22 @@ Crafty.scene("Village", function() {
 		
 		newsPaper.attr({
 			name: "paper",
+			x: 1244,
+			y: 262,
 			visible: true,
-			x: 610,
-			y: 236,
-			to: "Dude"
+			to: "Salik"
+		});
+		
+		foodItem.attr({
+			name: "food",
+			x: 1005,
+			y: 162
+		});
+		
+		waterItem.attr({
+			name: "water",
+			x: 1134,
+			y: 171
 		});
 		
 		//Front gate
@@ -100,7 +139,7 @@ Crafty.scene("Village", function() {
 			.makeDoor(0, 26, 106, 262, function() {
 			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
 			   DialogueBar.replaceText("I can't go back to where I came from.");
-			   DialogueBar.tween({alpha: 0.0}, 80);
+			   DialogueBar.tween({alpha: 0.0}, 120);
 			});
 		
 		//Locked guard door
@@ -109,7 +148,7 @@ Crafty.scene("Village", function() {
 			.makeDoor(181, 95, 91, 184, function() {
 			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
 			   DialogueBar.replaceText("This door is locked.");
-			   DialogueBar.tween({alpha: 0.0}, 80);
+			   DialogueBar.tween({alpha: 0.0}, 120);
 			});	
 		
 		//Goverment office - opening soon (?)
@@ -118,7 +157,7 @@ Crafty.scene("Village", function() {
 			.makeDoor(397, 53, 165, 185, function() {
 			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
 			   DialogueBar.replaceText("This government office is closed.");
-			   DialogueBar.tween({alpha: 0.0}, 80);
+			   DialogueBar.tween({alpha: 0.0}, 120);
 			});
 		
 		//Door to the Temple scene

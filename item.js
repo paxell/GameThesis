@@ -3,8 +3,8 @@ Crafty.c("Item", {
 	
     init: function() {
 		//canvas or DOM?
-        this.addComponent("2D, DOM, Mouse");
-        this.attr({visible: false});
+        this.addComponent("2D, Canvas, Mouse");
+        this.attr({visible: false, z: 50});
         this.name = "";
 		this.bind('MouseOver', function(e) {
 			$("#message").text(SELECTED + this.name);
@@ -13,18 +13,11 @@ Crafty.c("Item", {
 			$("#message").text(SELECTED);
 		});
     },
-    
-	//figure out why this isn't working
-    /*showItem: function(x, y) {
-        this.attr({x: x, y: y, visible:true});
-		return this;
-    },*/
 	
 	pickupItem: function() {
         if(SELECTED == PICK_UP) {
 		
 			//save the position/index in the inv array
-			//Inventory.inv.push(this);
             this.indexPos = Inventory.inv.push(this) - 1;
 			
 			//take off the stage
@@ -33,9 +26,14 @@ Crafty.c("Item", {
 			//add as a li to the inventory
 			$('#inventory ul').append('<li id="' + this.name + '"><img src="' + this.__image + '"></li>');
 			
+			pickedUp = true;
 			return this;
 			
-		}
+		};
+		/* trying to prevent items reappearing
+		if (pickedUp == true) {
+			this.attr({visible:false});
+		}*/
 		
     },
 
@@ -47,12 +45,10 @@ Crafty.c("Item", {
 		var self = this;
 		
 		//remove from the UI - broken
-		//$('#inventory ul').remove("li#" + self.name);
 		$("li#" + self.name).remove();
 	},
 	
 	lookatItem: function() {
-		//make these global to the component since the text will be used in other function(s)?
 		
 		var itemStuff = this.name;
 		var itemText = ITEMS[itemStuff];

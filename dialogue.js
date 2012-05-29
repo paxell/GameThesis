@@ -215,7 +215,9 @@ var DIALOGUE = {
 var ITEMS = {
 	coins: ["It's a handful of coins, a few credits' worth", "That looks about right."],
 	opal: ["This is worth a lot of money.", "This will buy you passage to Odor."],
-	paper: ["Must be the town's newspaper", "Not very intersting stuff."]
+	paper: ["Must be the town's newspaper", "Not very intersting stuff."],
+	food: ["I will need this to eat on the journey", "Not very intersting stuff."],
+	water: ["I will need this to drink on the journey", "Not very intersting stuff."]
 }
 
 //Notes/to do:

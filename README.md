@@ -12,12 +12,13 @@ The latest game prototype can be found here: http://paxelated.com/anotherworld/
 Framework
 -----------
 
-The Framework consists of a few main components (watch this space for updates):
+The Framework consists of a few main components:
 
-* WalkTo component for player movement, including scrolling the viewport with the character's movement
-* Dialogue component for interacting with other characters, reading the dialogue from a JSON file
-* Doors for moving between scenes
-* Item component for picking up and giving items (under construction)
+* WalkTo for player movement, including scrolling the viewport with the character's movement and animating the character walking.
+* Dialogue for interacting with other characters, parsing the dialogue from a JSON file.
+* Doors for moving between some scenes.
+* Item for picking up, looking at and and giving items.
+* Character with bindings to dialogue and receiving items.
 
 BugWorld
 ------------
