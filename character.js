@@ -27,21 +27,17 @@ Crafty.c("Character", {
 					DialogueBar.replaceText("I don't think so");
 					DialogueBar.tween({alpha: 0.0}, 80);
 				};
+			//note now all characters have to talk.
 			} else if (SELECTED == TALK_TO) {
 				DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0});
 				//bug: skips the first line
 				this.nextLine();
 			};
-            
         });
-		/*this.bind('KeyDown', function(e) {
-			if(e.key == Crafty.keys['ENTER']) {
-				this.nextLine();
-			}
-		});*/
 		this.bind("DialogueChange", function() {
 			//check who's speaking to change the position of the dialogue bar
 			//var speaker = this.currentLine.?
+		
 			if(this.currentLine.length) {
 				//only if there are choices
 				this.fillChoices(this.currentLine);
@@ -49,7 +45,15 @@ Crafty.c("Character", {
 				DialogueBar.replaceText(this.currentLine.txt);
 				//DialogueBar.attr({x: Speaker.x});
 			}
+			/*this.bind('KeyDown', function(e) {
+				if(e.key == Crafty.keys['ENTER']) {
+					this.nextLine();
+				} else if(e.key == Crafty.keys['ESC']) {
+					this.DialogueEnd();
+				};
+			});*/
 		});
+		var self = this;
 		this.bind("DialogueEnd", function() {
 			//get out of dialogue mode
 			DialogueBar.tween({alpha: 0.0}, 80);
@@ -58,13 +62,8 @@ Crafty.c("Character", {
 			$("#inventory").css('display', 'block');
 			//this.unbind("DialogueChange");
 			//this.unbind("Click");
-			
+			//try to reset dialogue
+			this.start = "Player:0";
 		});
-    },
-    
+    }, 
 });
-
-/* Notes:
-could add animation although every character might have a different animation
-could add dialogue script but some characters might not talk
-*/

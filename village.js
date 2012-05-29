@@ -6,6 +6,9 @@ Crafty.sprite(65, 95, "images/seller.png", {
 	eopen: [0,0],
 	eclosed: [1,0]
 });
+Crafty.sprite(32, 32, "images/item-paper.png", {
+	paper: [0,0]
+});
 
 Crafty.scene("Village", function() {
 
@@ -13,8 +16,8 @@ Crafty.scene("Village", function() {
 	SELECTED = "";
 	
 	//reset the viewport
-	Crafty.viewport.x = 0
-	Crafty.viewport.y = 0
+	Crafty.viewport.x = 0;
+	Crafty.viewport.y = 0;
 	
 	//set player boundaries if needed
 	Player.boundary.minY = 285;
@@ -23,7 +26,7 @@ Crafty.scene("Village", function() {
 	
 	Player.moving = false;
 	
-	Crafty.load(["images/village.png", "images/seller.png", "images/guard.png"], function() {
+	Crafty.load(["images/village.png", "images/seller.png", "images/guard.png", "images/item-paper.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/village.png");
 		
@@ -36,8 +39,8 @@ Crafty.scene("Village", function() {
 		
 		//Guard character
 		Guard = Crafty.e("Character, guard")
-				//.Dialogue(sceneScript.Guard)
-				.attr({visible: false})
+				.Dialogue(sceneScript.Guard)
+				.attr({visible: false});
 		
 		//Seller character
 		Seller = Crafty.e("Character, eopen")
@@ -50,13 +53,22 @@ Crafty.scene("Village", function() {
 						this.sprite(0, 0, 1, 1);
 					}
 				});
+				
+		//initialise newspaper item
+		newsPaper = Crafty.e("Item, paper")
+			.bind('Click', function(e) {
+				this.lookatItem();
+			})
+			.bind('Click', function(e) {
+				this.pickupItem();
+			});	
 		
 		/*----- Initialise Entities -----*/
 		
 		Player.attr({
 			visible: true,
-			x: 55,
-			y: 90
+			//x: 55,
+			//y: 90
 		});
 		
 		Guard.attr({
@@ -70,8 +82,16 @@ Crafty.scene("Village", function() {
 			visible: true,
 			x: 1058,
 			y: 100,
-			//accepts: "coins"
+			accepts: "coins",
 			name: "Alaine"
+		});
+		
+		newsPaper.attr({
+			name: "paper",
+			visible: true,
+			x: 610,
+			y: 236,
+			to: "Dude"
 		});
 		
 		//Front gate

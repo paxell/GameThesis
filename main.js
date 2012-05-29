@@ -14,19 +14,21 @@ window.onload = function() {
 	
 	Crafty.init(768, 304);
 	
-	Crafty.load(["images/character-sprite.png", "images/village.png"], function() {
+	Crafty.load(["images/character_sprite.png", "images/village.png"], function() {
 	
 		//player - global sprite
-		Crafty.sprite(68, 210, "images/character-sprite.png", {
+		Crafty.sprite(90, 210, "images/character_sprite.png", {
 			open: [0,0],
 			closed: [1,0],
-			//walk: [2,0]
+			walk: [2,0],
+			walk2: [3,0]
 		});
 		
 		/*----- Global Entities -----*/
 		
-		Player = Crafty.e("2D, Canvas, open, SpriteAnimation, Persist, WalkTo")
+		Player = Crafty.e("2D, Canvas, closed, SpriteAnimation, Persist, WalkTo")
 			.animate("blink", 0, 0, 1)
+			.animate("walk", 2, 0, 5)
 			.bind("EnterFrame", function(e) {
 				//blink every 50th - 60th frame
 				if(e.frame % 50 > 0 && e.frame % 50 < 10) {
@@ -35,7 +37,18 @@ window.onload = function() {
 					this.sprite(0, 0, 1, 1);
 				}
 			})
-			.attr({visible: false, z: 100});
+			.attr({visible: false, z: 100})
+			.bind("SceneChange", function(e) {
+                if ((e.newScene == "Village") && (e.oldScene == "Cantina")) {
+                    Player.attr({x: 1364, y: 94});
+					Crafty.viewport.x = -750;
+                } else if ((e.newScene == "Village") && (e.oldScene == "Temple")) {
+                    Player.attr({x: 712, y: 90});
+					Crafty.viewport.x = -500;
+                } else {
+                    Player.attr({x: 55, y: 90});
+                };
+            });
 			
 		//initialise inventory
 		Inventory = Crafty.e("2D, Canvas, menu, Persist")
@@ -132,9 +145,10 @@ window.onload = function() {
 					this.currentLine = this.parse(this.currentLine.next);
 					//trigger the change event
 					this.trigger("DialogueChange");
-					//displays help text in the message bar but disappears when choices appear
+					//hide other UI items
 					$("#buttons").css('display', 'none');
 					$("#inventory").css('display', 'none');
+					$("#message").text("(click character to continue)");
 				} //if there is no next (and not a choices array) end dialogue 
 				else if(this.currentLine.length === undefined) {
 					this.trigger("DialogueEnd");
@@ -158,22 +172,28 @@ window.onload = function() {
 				
 				//update choices with new html
 				$("#choices").html(html);
+				$("#message").text("(select choice to continue)");
 				
 				//user clicked on a choice
 				$("#choices .choice").click(function() {
 					var idx = $(this).index(); //the index of the choice
 					
 					//set the current line to whatever the choice leads to
-					self.currentLine = choices[idx];
-					//self.currentLine = self.parse(choices[idx].next);
+					//self.currentLine = choices[idx];
+					//old - this works better but skips a line
+					self.currentLine = self.parse(choices[idx].next);
 					
 					//trigger a change event to update the dialogue on screen
 					self.trigger("DialogueChange");
 					
 					//remove that choice as an option - not working
-					$("#choices .choice'[idx]").css("display" , "none");
+					//$("#choices .choice'[idx]").css("display" , "none");
 				});
-			}
+			},
+			
+			/*resetDialogue: function() {
+				
+			}*/
 		});
 		
 		//dialogue bar
@@ -204,7 +224,7 @@ window.onload = function() {
 		});
 		
 		//load the first scene
-		Crafty.scene("Cantina");
+		Crafty.scene("Village");
 		
 	});//end Crafty load
 	

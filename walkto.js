@@ -1,6 +1,5 @@
 //WALKTO COMPONENT
 //TO DO:
-//fix character keeps moving even if gone to the next scene
 //what if there is a slight difference between the walkable area and the scrollable area? eg cantina
 Crafty.c("WalkTo", {
 	init: function() {
@@ -56,7 +55,17 @@ Crafty.c("WalkTo", {
 			didMove = true;
 		}
 		
-		if(!didMove) this.moving = false;
+		//not moving, stop the animation
+        if(!didMove) {
+            this.moving = false;
+            this.stop();
+        }
+        
+        //is moving, start the animation
+        if (this.moving && !this.isPlaying()) {
+            this.animate("walk", 24, -1);
+        };
+		
 	},
 	
 	setTarget: function(x, y) {
@@ -67,9 +76,6 @@ Crafty.c("WalkTo", {
 		
 		//keep target in boundary
 		this.checkBoundary();
-		
-		//Needs walking sprite
-		//Player.animate("walk", 2, 3);
 	},
 	
 	checkBoundary: function() {

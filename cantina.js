@@ -13,9 +13,6 @@ Crafty.sprite(70, 179, "images/patron.png", {
 Crafty.sprite(32, 32, "images/item-coins.png", {
 	coins: [0,0],
 });
-Crafty.sprite(32, 32, "images/item-opal.png", {
-	opal: [0,0],
-});
 
 Crafty.scene("Cantina", function() {
 
@@ -23,8 +20,8 @@ Crafty.scene("Cantina", function() {
 	SELECTED = "";
 	
 	//reset the viewport
-	Crafty.viewport.x = 0
-	Crafty.viewport.y = 0
+	Crafty.viewport.x = 0;
+	Crafty.viewport.y = 0;
 	
 	//set player boundaries if needed
 	Player.boundary.minY = 275;
@@ -54,11 +51,14 @@ Crafty.scene("Cantina", function() {
 					} else {
 						this.sprite(0, 0, 1, 1);
 					}
+				})
+				.bind("DialogueEnd", function() {
+					coinAge.attr({visible: true});
 				});
 				
 		//Smuggler character
 		Smuggler = Crafty.e("Character, sopen")
-				//.Dialogue(sceneScript.Smuggler)
+				.Dialogue(sceneScript.Smuggler)
 				.animate("blink", 0, 0, 1)
 				.bind("EnterFrame", function(e) {
 					if(e.frame % 70 > 0 && e.frame % 70 < 10) {
@@ -74,22 +74,12 @@ Crafty.scene("Cantina", function() {
 		
 		//initialise coins item
 		coinAge = Crafty.e("Item, coins")
-			//.showItem(145, 458)
 			.bind('Click', function(e) {
 				this.lookatItem();
 			})
 			.bind('Click', function(e) {
 				this.pickupItem();
 			});	
-		
-		//initialise opal item
-		opalAge = Crafty.e("Item, opal")
-			.bind('Click', function(e) {
-				this.lookatItem();
-			})
-			.bind('Click', function(e) {
-				this.pickupItem();
-			});
 			
 		/*----- Initialise Entities -----*/
 		
@@ -103,7 +93,6 @@ Crafty.scene("Cantina", function() {
 			visible: true,
 			x: 478,
 			y: 12,
-			accepts: "coins",
 			name: "Arrak"
 		});
 		
@@ -124,16 +113,8 @@ Crafty.scene("Cantina", function() {
 		
 		coinAge.attr({
 			name: "coins",
-			visible:true,
-			to: "Barman"
-		});
-		
-		
-		opalAge.attr({
-			name: "opal",
-			visible:true,
-			x: 335,
-			y: 22,
+			x: 430,
+			y: 138,
 			to: "Seller"
 		});
 		

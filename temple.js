@@ -7,6 +7,9 @@ Crafty.sprite(116, 88, "images/worshipper.png", {
 	bow: [0,0],
 	nobow: [1,0]
 });
+Crafty.sprite(32, 32, "images/item-opal.png", {
+	opal: [0,0],
+});
 
 Crafty.scene("Temple", function() {
 
@@ -24,7 +27,7 @@ Crafty.scene("Temple", function() {
 	
 	Player.moving = false;
 
-	Crafty.load(["images/priestess.png", "images/worshipper.png", "images/temple.png"], function() {
+	Crafty.load(["images/temple.png", "images/priestess.png", "images/worshipper.png", "images/item-opal.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/temple.png");
 		
@@ -37,6 +40,7 @@ Crafty.scene("Temple", function() {
 		
 		//Worshipper character
 		Worshipper = Crafty.e("Character, bow")
+				.Dialogue(sceneScript.Worshipper)
 				.animate("bow", 0, 0, 1)
 				.animate("bow", 300, -1)
 		
@@ -51,34 +55,18 @@ Crafty.scene("Temple", function() {
 						this.sprite(0, 0, 1, 1);
 					}
 				})
-				//first line of dialogue
-				.bind('Click', function(e) {
-					if (SELECTED == TALK_TO) {
-						DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
-						//skips the first line - fix or work around?
-						this.nextLine();
-					}
-				})
-				//rest of dialogue - could this go in the component?
-				.bind('KeyDown', function(e) {
-					if(e.key == Crafty.keys['ENTER']) {
-						this.nextLine();						
-					}
-				})
-				.bind("DialogueChange", function() {
-					if(this.currentLine.length) {
-						//only if there are choices
-						this.fillChoices(this.currentLine);
-					} else {
-						DialogueBar.replaceText(this.currentLine.txt);
-					}
-				})
 				.bind("DialogueEnd", function() {
-					//get out of dialogue mode - move to component?
-					DialogueBar.attr({visible: false});
-					$("#choices").hide();
+					opalAge.attr({visible: true});
 				});
 		
+		//initialise opal item
+		opalAge = Crafty.e("Item, opal")
+			.bind('Click', function(e) {
+				this.lookatItem();
+			})
+			.bind('Click', function(e) {
+				this.pickupItem();
+			});
 			
 		/*----- Initialise Entities -----*/
 		
@@ -104,6 +92,13 @@ Crafty.scene("Temple", function() {
 		
 		Inventory.attr({
 			visible: false
+		});
+		
+		opalAge.attr({
+			name: "opal",
+			x: 939,
+			y: 202,
+			to: "Smuggler"
 		});
 		
 		//Door to the Village scene
