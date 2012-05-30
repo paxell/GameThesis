@@ -26,17 +26,9 @@ window.onload = function() {
 		
 		/*----- Global Entities -----*/
 		
-		Player = Crafty.e("2D, Canvas, closed, SpriteAnimation, Persist, WalkTo")
+		Player = Crafty.e("2D, Canvas, closed, SpriteAnimation, Persist, WalkTo, Dialogue")
 			.animate("blink", 0, 0, 1)
 			.animate("walk", 2, 0, 5)
-			.bind("EnterFrame", function(e) {
-				//blink every 50th - 60th frame
-				if(e.frame % 50 > 0 && e.frame % 50 < 10) {
-					this.sprite(1, 0, 1, 1);
-				} else {
-					this.sprite(0, 0, 1, 1);
-				}
-			})
 			.attr({visible: false, z: 100})
 			.bind("SceneChange", function(e) {
                 if ((e.newScene == "Village") && (e.oldScene == "Cantina")) {
@@ -45,9 +37,23 @@ window.onload = function() {
                 } else if ((e.newScene == "Village") && (e.oldScene == "Temple")) {
                     Player.attr({x: 712, y: 90});
 					Crafty.viewport.x = -500;
-                } else {
+				} else if ((e.newScene == "Spaceport") && (e.oldScene == "Voyage")) {
+                    Player.attr({x: 50, y: 70});
+				} else if ((e.newScene == "Spaceport") && (e.oldScene == "Bathroom")) {
+                    Player.attr({x: 797, y: 71});
+					Crafty.viewport.x = -500;
+				} else if ((e.newScene == "Spaceport") && (e.oldScene == "Carpark")) {
+                    Player.attr({x: 1362, y: 75});
+					Crafty.viewport.x = -750;
+				} else if ((e.newScene == "Bathroom") && (e.oldScene == "Spaceport")) {
+                    Player.attr({x: 50, y: 83});
+				} else if ((e.newScene == "Carpark") && (e.oldScene == "Spaceport")) {
+                    Player.attr({x: 125, y: 86});
+                } else if ((e.newScene == "Village") && (e.oldScene == "Intro")){
                     Player.attr({x: 55, y: 90});
-                };
+                } else {
+					Player.attr({x: 351, y: 75});
+				};
             });
 			
 		//initialise inventory
@@ -201,8 +207,8 @@ window.onload = function() {
 			init: function(x, y) {
 				this.addComponent("2D, DOM, Text, Tween");
 				//will need more dynamic values for x and y
-				this.attr({x: x, y: y, w: (Crafty.viewport.width / 3), h: 40, visible: false});
-				this.css({background: '#fff', padding: '8px', opacity: 0.6, border: '2px solid #000'})
+				this.attr({x: x, y: y, w: (Crafty.viewport.width / 3), h: 45, visible: false, alpha: 0.6});
+				this.css({background: '#fff', padding: '8px', border: '2px solid #000'})
 			},
 			replaceText: function(txt) {
 				this.text(txt);
@@ -227,7 +233,7 @@ window.onload = function() {
 		Crafty.audio.play("bgmusic", -1);
 		
 		//load the first scene
-		Crafty.scene("Village");
+		Crafty.scene("Load");
 		
 	});//end Crafty load
 	
@@ -246,7 +252,7 @@ Crafty.c("Door", {
             }
         });
         this.bind("MouseOver", function() {
-            //if(SELECTED == OPEN)
+            //if(SELECTED == OPEN) ?
 			$("#message").text(SELECTED + this.name);      
         });
 		this.bind("MouseOut", function() {
@@ -254,5 +260,4 @@ Crafty.c("Door", {
         });
         this.attr({w: w, h: h, x: x, y: y});
     }
-	//add function for locked door
 });

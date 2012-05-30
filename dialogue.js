@@ -1,7 +1,33 @@
 var DIALOGUE = {
 
 //note currently the dialogue component skips the first line!
-
+	
+	Intro: {
+		Player: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Player:1"},
+					{txt: "My faith teaches me that there are three sides to every endeavour: A beginning, a middle and an end.", next: "Player:2"},
+					{txt: "My parents have met with their end, and although it means a new beginning for them, we will never again cross paths.", next: "Player:3"},
+					{txt: "My escape from the forces that claimed my parents has prolonged my end,", next: "Player:4"},
+					{txt: "but their sacrifice will be meaningless if I don't leave this world.", next: "Player:5"},
+					{txt: "I can only hope that my sister is still safe and that in time she will be able to join me, on another world."}	
+			]
+		}
+	},
+	
+	Voyage: {
+		Player: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Player:1"},
+					{txt: "On the voyage I thought about my parents. To some their ideas were hard to hear.", next: "Player:2"},
+					{txt: "As for me, I could listen to them endlessly. I miss their stories.", next: "Player:3"},
+					{txt: "I thought about my sister.", next: "Player:4"},
+					{txt: "I wondered about this new world and whether it would accept us as we are.", next: "Player:5"},
+					{txt: "I can only hope it is somewhere we can be safe and happy together."}	
+			]
+		}
+	},
+	
 	Village: {
 		Guard: {
 			Player: [
@@ -209,6 +235,55 @@ var DIALOGUE = {
 					{txt: "Stay strong, child. I will pray for you and your sister."}
 			]
 		}
+	},
+	
+	Spaceport: {
+		Girl: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Girl:0"}			
+			],
+			Girl: [
+					{txt: "Have you seen my doll?"}
+			]
+		},
+		Passenger: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Passenger:0"}			
+			],
+			Passenger: [
+					{txt: "Do you have news from home?"}
+			]
+		},
+		SecGuard: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "SecGuard:0"}			
+			],
+			SecGuard: [
+					{txt: "Identification, please."}
+			]
+		}
+	},
+	
+	Bathroom: {
+		Father: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Father:0"}					
+			],
+			Father: [
+					{txt: "Kerr suchres fasal du?"}
+			]
+		}
+	},
+	
+	Carpark: {
+		Cabbie: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Cabbie:0"}			
+			],
+			Cabbie: [
+					{txt: "Where to?"}
+			]	
+		}
 	}
 }
 
@@ -217,7 +292,10 @@ var ITEMS = {
 	opal: ["This is worth a lot of money.", "This will buy you passage to Odor."],
 	paper: ["Must be the town's newspaper", "Not very intersting stuff."],
 	food: ["I will need this to eat on the journey", "Not very intersting stuff."],
-	water: ["I will need this to drink on the journey", "Not very intersting stuff."]
+	water: ["I will need this to drink on the journey", "Not very intersting stuff."],
+	doll: ["Looks like a child's toy.", "Not very intersting stuff."],
+	address: ["The address of somewhere to stay.", "Not very intersting stuff."],
+	docs: ["These documents should get me past the guard", "Not very intersting stuff."]
 }
 
 //Notes/to do:
