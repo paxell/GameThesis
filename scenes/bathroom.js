@@ -3,9 +3,9 @@ Crafty.sprite(69, 271, "images/father.png", {
 	jacket1: [0,0],
 	jacket2: [1,0]
 });
-/*Crafty.sprite(32, 32, "images/item-docs.png", {
+Crafty.sprite(32, 32, "images/item-docs.png", {
 	docs: [0,0],
-});*/
+});
 
 Crafty.scene("Bathroom", function() {
 
@@ -23,7 +23,7 @@ Crafty.scene("Bathroom", function() {
 	
 	Player.moving = false;
 
-	Crafty.load(["images/bathroom.png", "images/father.png"], function() {
+	Crafty.load(["images/bathroom.png", "images/father.png", "images/item-docs.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/bathroom.png");
 		
@@ -46,19 +46,17 @@ Crafty.scene("Bathroom", function() {
 					}
 				})
 				/*.bind("DialogueEnd", function() {
-					opalAge.attr({visible: true});
+					docsItem.attr({visible: true});
 				});*/
 		
-		/*
-		//initialise opal item
-		opalAge = Crafty.e("Item, opal")
+		//initialise docs item
+		docsItem = Crafty.e("Item, docs")
 			.bind('Click', function(e) {
 				this.lookatItem();
 			})
 			.bind('Click', function(e) {
 				this.pickupItem();
 			});
-		*/
 			
 		/*----- Initialise Entities -----*/
 		
@@ -73,14 +71,11 @@ Crafty.scene("Bathroom", function() {
 			name: "Bana"
 		});
 		
-		/*
-		opalAge.attr({
-			name: "opal",
+		docsItem.attr({
+			name: "documents",
 			x: 939,
-			y: 202,
-			to: "Smuggler"
+			y: 202
 		});
-		*/
 		
 		Inventory.attr({
 			visible: false

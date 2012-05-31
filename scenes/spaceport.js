@@ -11,12 +11,12 @@ Crafty.sprite(83, 248, "images/secguard.png", {
 	secopen: [0,0],
 	secclosed: [1,0]
 });
-/*Crafty.sprite(32, 32, "images/item-doll.png", {
+Crafty.sprite(32, 32, "images/item-doll.png", {
 	doll: [0,0]
 });
 Crafty.sprite(32, 32, "images/item-address.png", {
 	address: [0,0]
-});*/
+});
 
 Crafty.scene("Spaceport", function() {
 
@@ -34,7 +34,7 @@ Crafty.scene("Spaceport", function() {
 	
 	Player.moving = false;
 	
-	Crafty.load(["images/spaceport.png", "images/girl.png", "images/passenger.png", "images/secguard.png"], function() {
+	Crafty.load(["images/spaceport.png", "images/girl.png", "images/item-doll.png", "images/item-address.png", "images/passenger.png", "images/secguard.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/spaceport.png");
 		
@@ -57,13 +57,23 @@ Crafty.scene("Spaceport", function() {
 		
 		//Girl character
 		Girl = Crafty.e("Character, sad")
-				.Dialogue(sceneScript.Girl);
+				.Dialogue(sceneScript.Girl)
+				.animate("happy", 0, 0, 1)
+				.bind('ItemGiven', function() {
+					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.replaceText("Thanks a lot!");
+					DialogueBar.tween({alpha: 0.0}, 120);
+					this.animate("happy", 1, 1);
+				});
 		
 		//Passenger character
 		Passenger = Crafty.e("Character, hands1")
 				.Dialogue(sceneScript.Passenger)
 				.animate("hands", 0, 0, 1)
-				.animate("hands", 80, -1);
+				.animate("hands", 80, -1)
+				.bind("DialogueEnd", function() {
+					addressItem.attr({visible: true});
+				});;
 				
 		//Guard character
 		SecGuard = Crafty.e("Character, secopen")
@@ -78,9 +88,9 @@ Crafty.scene("Spaceport", function() {
 					}
 				});
 
-		/*		
-		//initialise newspaper item
-		newsPaper = Crafty.e("Item, paper")
+				
+		//initialise doll item
+		dollItem = Crafty.e("Item, doll")
 			.bind('Click', function(e) {
 				this.lookatItem();
 			})
@@ -88,8 +98,8 @@ Crafty.scene("Spaceport", function() {
 				this.pickupItem();
 			});	
 		
-		//initialise food item
-		foodItem = Crafty.e("Item, food")
+		//initialise address item
+		addressItem = Crafty.e("Item, address")
 			.bind('Click', function(e) {
 				this.lookatItem();
 			})
@@ -128,17 +138,19 @@ Crafty.scene("Spaceport", function() {
 			name: "Trager"
 		});
 		
-		/*dollItem.attr({
+		dollItem.attr({
 			name: "doll",
-			x: 1005,
-			y: 162
-		});
+			x: 988,
+			y: 153,
+			visible:true
+		})
 		
 		addressItem.attr({
 			name: "address",
-			x: 1134,
-			y: 171
-		});*/
+			x: 433,
+			y: 175,
+			visible:false
+		});
 		
 		Inventory.attr({
 			visible: false

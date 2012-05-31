@@ -26,7 +26,7 @@ Crafty.scene("Cantina", function() {
 	//set player boundaries if needed
 	Player.boundary.minY = 275;
 	//this shouldn't be needed but it is..
-	Player.boundary.maxX = 1001;
+	Player.boundary.maxX = 990;
 	
 	Player.moving = false;
 
@@ -69,10 +69,15 @@ Crafty.scene("Cantina", function() {
 				})
 				.bind('ItemGiven', function() {
 					//need condition for if player has food and water in inventory
-					$("#buttons").css('display', 'none');
-					$("#inventory").css('display', 'none');
-					$("#message").css('display', 'none');
-					Crafty.scene("Voyage");
+					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.replaceText("Looks like everything's in order. Now let's get off this backwater.");
+					DialogueBar.tween({alpha: 0.0}, 150)
+					.bind("TweenEnd", function() {
+						$("#buttons").css('display', 'none');
+						$("#inventory").css('display', 'none');
+						$("#message").css('display', 'none');
+						Crafty.scene("Voyage");
+					});
 				});
 				
 		//Drunk character

@@ -46,6 +46,6 @@ body { font-family: 'Averia Libre', Georgia, serif; font-weight:300; background:
 
 /*Clickable items------------------------------------------------------------*/
 
-#buttons ul li:hover, .choice:hover, .Item:hover, #inventory ul li:hover, .Dialogue:hover { cursor:pointer; }
+#buttons ul li:hover, .choice:hover, .Item:hover, #inventory ul li:hover, .Dialogue:hover, .Mouse:hover { cursor:pointer; }
 
 

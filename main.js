@@ -31,7 +31,11 @@ window.onload = function() {
 			.animate("walk", 2, 0, 5)
 			.attr({visible: false, z: 100})
 			.bind("SceneChange", function(e) {
-                if ((e.newScene == "Village") && (e.oldScene == "Cantina")) {
+				if ((e.newScene == "Gate") && (e.oldScene == "Intro")){
+                    Player.attr({x: 55, y: 70});
+				} else if ((e.newScene == "Village") && (e.oldScene == "Gate")){
+                    Player.attr({x: 55, y: 90});
+                } else if ((e.newScene == "Village") && (e.oldScene == "Cantina")) {
                     Player.attr({x: 1364, y: 94});
 					Crafty.viewport.x = -750;
                 } else if ((e.newScene == "Village") && (e.oldScene == "Temple")) {
@@ -49,8 +53,6 @@ window.onload = function() {
                     Player.attr({x: 50, y: 83});
 				} else if ((e.newScene == "Carpark") && (e.oldScene == "Spaceport")) {
                     Player.attr({x: 125, y: 86});
-                } else if ((e.newScene == "Village") && (e.oldScene == "Intro")){
-                    Player.attr({x: 55, y: 90});
                 } else {
 					Player.attr({x: 351, y: 75});
 				};
@@ -154,7 +156,7 @@ window.onload = function() {
 					//hide other UI items
 					$("#buttons").css('display', 'none');
 					$("#inventory").css('display', 'none');
-					$("#message").text("(click character to continue)");
+					//$("#message").text("(click character to continue)");
 				} //if there is no next (and not a choices array) end dialogue 
 				else if(this.currentLine.length === undefined) {
 					this.trigger("DialogueEnd");

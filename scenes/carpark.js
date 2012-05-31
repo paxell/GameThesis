@@ -36,6 +36,12 @@ Crafty.scene("Carpark", function() {
 				.Dialogue(sceneScript.Cabbie)
 				.animate("mouth", 0, 0, 1)
 				.animate("mouth", 100, -1)
+				.bind('ItemGiven', function() {
+					$("#buttons").css('display', 'none');
+					$("#inventory").css('display', 'none');
+					$("#message").css('display', 'none');
+					Crafty.scene("Journey");
+				});
 			
 		/*----- Initialise Entities -----*/
 		
@@ -49,7 +55,8 @@ Crafty.scene("Carpark", function() {
 			visible: true,
 			x: 276,
 			y: 74,
-			name: "Mos"
+			name: "Mos",
+			accepts: "address"
 		});
 		
 		Inventory.attr({

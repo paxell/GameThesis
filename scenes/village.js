@@ -20,6 +20,7 @@ Crafty.scene("Village", function() {
 
 	//reset the selection
 	SELECTED = "";
+	$("#message").text("");
 	
 	//reset the viewport
 	Crafty.viewport.x = 0;
@@ -43,16 +44,6 @@ Crafty.scene("Village", function() {
 		DialogueBar = Crafty.e("DialogueBar")
 				.attr({visible: false});
 		
-		//add blinking animation to player
-		Player.bind("EnterFrame", function(e) {
-				//blink every 50th - 60th frame
-				if(e.frame % 50 > 0 && e.frame % 50 < 10) {
-					this.sprite(1, 0, 1, 1);
-				} else {
-					this.sprite(0, 0, 1, 1);
-				}
-			});
-		
 		//Guard character
 		Guard = Crafty.e("Character, guard")
 				.Dialogue(sceneScript.Guard)
@@ -70,6 +61,9 @@ Crafty.scene("Village", function() {
 					}
 				})
 				.bind('ItemGiven', function() {
+					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.replaceText("Here you go. Safe journey and all that.");
+					DialogueBar.tween({alpha: 0.0}, 150);
 					foodItem.attr({visible:true});
 					waterItem.attr({visible:true});
 				});

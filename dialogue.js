@@ -8,8 +8,7 @@ var DIALOGUE = {
 					{txt: "PLACEHOLDER", next: "Player:1"},
 					{txt: "My faith teaches me that there are three sides to every endeavour: A beginning, a middle and an end.", next: "Player:2"},
 					{txt: "My parents have met with their end, and although it means a new beginning for them, we will never again cross paths.", next: "Player:3"},
-					{txt: "My escape from the forces that claimed my parents has prolonged my end,", next: "Player:4"},
-					{txt: "but their sacrifice will be meaningless if I don't leave this world.", next: "Player:5"},
+					{txt: "Escape from the forces that claimed them has prolonged my end, but their sacrifice will be meaningless if I don't leave.", next: "Player:4"},
 					{txt: "I can only hope that my sister is still safe and that in time she will be able to join me, on another world."}	
 			]
 		}
@@ -21,9 +20,19 @@ var DIALOGUE = {
 					{txt: "PLACEHOLDER", next: "Player:1"},
 					{txt: "On the voyage I thought about my parents. To some their ideas were hard to hear.", next: "Player:2"},
 					{txt: "As for me, I could listen to them endlessly. I miss their stories.", next: "Player:3"},
-					{txt: "I thought about my sister.", next: "Player:4"},
-					{txt: "I wondered about this new world and whether it would accept us as we are.", next: "Player:5"},
-					{txt: "I can only hope it is somewhere we can be safe and happy together."}	
+					{txt: "I thought about my sister. I can only hope the new world is somewhere we can be safe and happy together."}	
+			]
+		}
+	},
+	
+	Journey: {
+		Player: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Player:1"},
+					{txt: "It seems there are others like me who feared for their lives at home.", next: "Player:2"},
+					{txt: "Learning a new language and adjusting to a new life with be hard.", next: "Player:3"},
+					{txt: "I hope I will be accepted for who I am and where I have come from.", next: "Player:4"},
+					{txt: "If my sister can join me, I'm sure we can tackle anything together."}	
 			]
 		}
 	},
@@ -102,10 +111,8 @@ var DIALOGUE = {
 			Barman: [
 					{txt: "You aren't like my regular patrons.", next: "Choices:0"},
 					{txt: "Voler is the one to see about that. It won't be cheap though.", next: "Barman:2"},
-					{txt: "I think I knew your father. Not much of a drinker.", next: "Barman:3"},
-					{txt: "And a bit of a talker, like you. He had some good ideas.", next: "Barman:4"},
-					{txt: "I heard he got in trouble for them. You be careful now.", next: "Barman:5"},
-					{txt: "Here, take this."},
+					{txt: "I think I knew your father. Not much of a drinker. A bit of a talker, like you. He had some good ideas.", next: "Barman:3"},
+					{txt: "I heard about what happened to him. You be careful now. Here, take this."},
 					{txt: "You could try the government office. But they are never open.", next: "Barman:2"}
 			],
 			Choices: [
@@ -160,24 +167,22 @@ var DIALOGUE = {
 			Smuggler: [
 					{txt: "Make it quick, kid.", next: "Player:1"}, 
 					{txt: "Ok there are two things you need to know.", next: "Smuggler:2"},
-					{txt: "It's a fast ship so it's expensive.", next: "Smuggler:3"},
-					{txt: "And it's not a pleasure cruise so you do your own catering.", next: "Choices:0"},
+					{txt: "It's a fast ship so it's expensive. And it's not a pleasure cruise so you do your own catering.", next: "Choices:0"},
 					{txt: "Good. As soon as you have food and water we can go. Would be messy if you died on my ship."},
 					{txt: "Now all you need is payment. A ship as fast as this goes through fuel like you wouldn't believe."},
 			],
 			Choices: [
 				[
 					{txt: "I can't pay for passage.", next: "Answers:0"},
-					{txt: "I can pay for passage.", next: "Smuggler:2"},
+					{txt: "I can pay for passage.", next: "Smuggler:3"},
 					{txt: "I don't have any food or water.", next: "Answers:1"},
-					{txt: "I have food and water", next: "Smuggler:3"},
+					{txt: "I have food and water", next: "Smuggler:4"},
 					{txt: "Nevermind."}
 				]
 			],
 			Answers: [
 					{txt: "Maybe try praying to your gods."},
-					{txt: "You could try the world's worst caterer, she has a stall in the village."},
-					{txt: "Some people don't want to be found."}
+					{txt: "You could try the world's worst caterer, she has a stall in the village."}
 			]
 		}
 	},

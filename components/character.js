@@ -36,16 +36,21 @@ Crafty.c("Character", {
 			};
         });
 		this.bind("DialogueChange", function() {
-			//check who's speaking to change the position of the dialogue bar
-			//var speaker = this.currentLine.?
-		
+			
 			if(this.currentLine.length) {
 				//only if there are choices
 				this.fillChoices(this.currentLine);
 			} else {
+				/*
+				var nextSpeaker = this.parse(this.currentLine.next)[0];
+				if(nextSpeaker == "Player" || nextSpeaker == "Choices") {
+					DialogueBar.attr({x: this.x});
+				} else {
+					DialogueBar.attr({x: Player.x});
+				};
+				*/
 				DialogueBar.replaceText(this.currentLine.txt);
-				//DialogueBar.attr({x: Speaker.x});
-			}
+			};
 			/*this.bind('KeyDown', function(e) {
 				if(e.key == Crafty.keys['ENTER']) {
 					this.nextLine();
