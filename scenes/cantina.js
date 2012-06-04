@@ -69,7 +69,7 @@ Crafty.scene("Cantina", function() {
 				})
 				.bind('ItemGiven', function() {
 					//need condition for if player has food and water in inventory
-					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 					DialogueBar.replaceText("Looks like everything's in order. Now let's get off this backwater.");
 					DialogueBar.tween({alpha: 0.0}, 150)
 					.bind("TweenEnd", function() {

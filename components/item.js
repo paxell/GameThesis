@@ -26,7 +26,8 @@ Crafty.c("Item", {
 			//add as a li to the inventory
 			$('#inventory ul').append('<li id="' + this.name + '"><img src="' + this.__image + '"></li>');
 			
-			pickedUp = true;
+			//pickedUp = true;
+			
 			return this;
 			
 		};
@@ -56,7 +57,7 @@ Crafty.c("Item", {
 		var itemDesc = itemText[0];
 		
         if (SELECTED == LOOK_AT) {
-			DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 			DialogueBar.replaceText(itemDesc);
 			DialogueBar.tween({alpha: 0.0}, 120);
 		}

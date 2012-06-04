@@ -102,6 +102,30 @@ var DIALOGUE = {
 		},
 	},
 	
+	Office: {
+		Clerk: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Clerk:0"},
+					{txt: "Isn't there anything else that can be done?", next: "Clerk:1"}					
+			],
+			Clerk: [
+					{txt: "May I help you?", next: "Choices:0"},
+					{txt: "You could ask for help at the temple.", next: "Clerk:2"},
+					{txt: "Although, I heard the goverment plans to shut down places like that soon."},
+					{txt: "There are a few forms you will need to fill out. Processing takes a few months.", next: "Clerk:4"},
+					{txt: "Oh, and you'll need that signed by a parent or guardian.", next: "Player:1"},
+					{txt: "Beats me, I only just started working here."}
+			],
+			Choices: [
+				[
+					{txt: "I need to apply for some protection.", next: "Clerk:3"},
+					{txt: "I need to leave this planet.", next: "Clerk:3"},
+					{txt: "This is a nice office, is it new?.", next: "Clerk:5"}
+				]
+			],
+		}
+	},
+	
 	Cantina: {
 		Barman: {
 			Player: [
@@ -259,6 +283,14 @@ var DIALOGUE = {
 					{txt: "Do you have news from home?"}
 			]
 		},
+		Hostess: {
+			Player: [
+					{txt: "PLACEHOLDER", next: "Hostess:0"}			
+			],
+			Hostess: [
+					{txt: "Welcome, traveller!"}
+			]
+		},
 		SecGuard: {
 			Player: [
 					{txt: "PLACEHOLDER", next: "SecGuard:0"}			
@@ -293,14 +325,15 @@ var DIALOGUE = {
 }
 
 var ITEMS = {
-	coins: ["It's a handful of coins, a few credits' worth", "That looks about right."],
-	opal: ["This is worth a lot of money.", "This will buy you passage to Odor."],
-	paper: ["Must be the town's newspaper", "Not very intersting stuff."],
-	food: ["I will need this to eat on the journey", "Not very intersting stuff."],
-	water: ["I will need this to drink on the journey", "Not very intersting stuff."],
-	doll: ["Looks like a child's toy.", "Not very intersting stuff."],
-	address: ["The address of somewhere to stay.", "Not very intersting stuff."],
-	docs: ["These documents should get me past the guard", "Not very intersting stuff."]
+	coins: ["It's a handful of coins, a few credits' worth", ""],
+	opal: ["This is worth a lot of money.", ""],
+	paper: ["Must be the town's newspaper", ""],
+	food: ["I will need this to eat on the journey", ""],
+	water: ["I will need this to drink on the journey", ""],
+	doll: ["Looks like a child's toy.", ""],
+	address: ["The address of somewhere to stay.", ""],
+	docs: ["These documents should get me past the guard", ""],
+	book: ["This phrasebook will help me learn a new language.", ""]
 }
 
 //Notes/to do:

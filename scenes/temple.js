@@ -90,10 +90,6 @@ Crafty.scene("Temple", function() {
 			name: "Selise"
 		});
 		
-		Inventory.attr({
-			visible: false
-		});
-		
 		opalAge.attr({
 			name: "opal",
 			x: 939,

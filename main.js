@@ -35,6 +35,8 @@ window.onload = function() {
                     Player.attr({x: 55, y: 70});
 				} else if ((e.newScene == "Village") && (e.oldScene == "Gate")){
                     Player.attr({x: 55, y: 90});
+				} else if ((e.newScene == "Village") && (e.oldScene == "Office")){
+                    Player.attr({x: 420, y: 78});
                 } else if ((e.newScene == "Village") && (e.oldScene == "Cantina")) {
                     Player.attr({x: 1364, y: 94});
 					Crafty.viewport.x = -750;
@@ -209,7 +211,7 @@ window.onload = function() {
 			init: function(x, y) {
 				this.addComponent("2D, DOM, Text, Tween");
 				//will need more dynamic values for x and y
-				this.attr({x: x, y: y, w: (Crafty.viewport.width / 3), h: 45, visible: false, alpha: 0.6});
+				this.attr({x: x, y: 0, w: (Crafty.viewport.width / 3), h: 45, visible: false, alpha: 0.8});
 				this.css({background: '#fff', padding: '8px', border: '2px solid #000'})
 			},
 			replaceText: function(txt) {

@@ -15,7 +15,9 @@ Crafty.sprite(32, 32, "images/item-food.png", {
 Crafty.sprite(32, 32, "images/item-water.png", {
 	water: [0,0]
 });
-
+Crafty.sprite(86, 48, "images/lizard.png", {
+	lizard: [0,0]
+});
 Crafty.scene("Village", function() {
 
 	//reset the selection
@@ -33,7 +35,7 @@ Crafty.scene("Village", function() {
 	
 	Player.moving = false;
 	
-	Crafty.load(["images/village.png", "images/seller.png", "images/guard.png", "images/item-paper.png"], function() {
+	Crafty.load(["images/village.png", "images/seller.png", "images/guard.png", "images/item-paper.png", "images/lizard.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/village.png");
 		
@@ -61,7 +63,7 @@ Crafty.scene("Village", function() {
 					}
 				})
 				.bind('ItemGiven', function() {
-					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.attr({x: Player.x, visible:true}); 
 					DialogueBar.replaceText("Here you go. Safe journey and all that.");
 					DialogueBar.tween({alpha: 0.0}, 150);
 					foodItem.attr({visible:true});
@@ -95,6 +97,19 @@ Crafty.scene("Village", function() {
 				this.pickupItem();
 			});	
 		
+		//initialise lizard
+		liZard = Crafty.e("2D, Canvas, lizard, Mouse")
+			.bind('Click', function(e) {
+				if (SELECTED == LOOK_AT) {
+					DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
+					DialogueBar.replaceText("Not sure if it's alive or dead.");
+					DialogueBar.tween({alpha: 0.0}, 150);
+				}
+			})
+			.bind('MouseOver', function(e) {
+				$("#message").text(SELECTED + "lizard");
+			});
+				
 		/*----- Initialise Entities -----*/
 		
 		Player.attr({
@@ -107,6 +122,12 @@ Crafty.scene("Village", function() {
 			x: 290,
 			y: 36, 
 			name: "Joruk"
+		});
+		
+		liZard.attr({
+			visible: true,
+			x: 886,
+			y: 224
 		});
 		
 		Seller.attr({
@@ -145,7 +166,7 @@ Crafty.scene("Village", function() {
 		gateDoor = Crafty.e("Door")
 			.attr({name: "village gate"})
 			.makeDoor(0, 26, 106, 262, function() {
-			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 			   DialogueBar.replaceText("I can't go back to where I came from.");
 			   DialogueBar.tween({alpha: 0.0}, 120);
 			});
@@ -154,7 +175,7 @@ Crafty.scene("Village", function() {
 		guardDoor = Crafty.e("Door")
 			.attr({name: "guard door"})
 			.makeDoor(181, 95, 91, 184, function() {
-			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 			   DialogueBar.replaceText("This door is locked.");
 			   DialogueBar.tween({alpha: 0.0}, 120);
 			});	
@@ -163,9 +184,7 @@ Crafty.scene("Village", function() {
 		govDoor = Crafty.e("Door")
 			.attr({name: "office door"})
 			.makeDoor(397, 53, 165, 185, function() {
-			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
-			   DialogueBar.replaceText("This government office is closed.");
-			   DialogueBar.tween({alpha: 0.0}, 120);
+			   Crafty.scene("Office");
 			});
 		
 		//Door to the Temple scene

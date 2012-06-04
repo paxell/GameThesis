@@ -24,13 +24,13 @@ Crafty.c("Character", {
 					console.log("Gave item");
 					this.trigger("ItemGiven");
 				} else {
-					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.attr({x: Player.x, visible:true}); 
 					DialogueBar.replaceText("I don't think so");
 					DialogueBar.tween({alpha: 0.0}, 80);
 				};
 			//note now all characters have to talk.
 			} else if (SELECTED == TALK_TO) {
-				DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0});
+				DialogueBar.attr({x: Player.x, visible:true, alpha:0.8});
 				//bug: skips the first line
 				this.nextLine();
 			};

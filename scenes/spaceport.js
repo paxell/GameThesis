@@ -11,11 +11,18 @@ Crafty.sprite(83, 248, "images/secguard.png", {
 	secopen: [0,0],
 	secclosed: [1,0]
 });
+Crafty.sprite(57, 107, "images/hostess.png", {
+	hopen: [0,0],
+	hclosed: [1,0]
+});
 Crafty.sprite(32, 32, "images/item-doll.png", {
 	doll: [0,0]
 });
 Crafty.sprite(32, 32, "images/item-address.png", {
 	address: [0,0]
+});
+Crafty.sprite(32, 32, "images/item-book.png", {
+	book: [0,0]
 });
 
 Crafty.scene("Spaceport", function() {
@@ -34,7 +41,7 @@ Crafty.scene("Spaceport", function() {
 	
 	Player.moving = false;
 	
-	Crafty.load(["images/spaceport.png", "images/girl.png", "images/item-doll.png", "images/item-address.png", "images/passenger.png", "images/secguard.png"], function() {
+	Crafty.load(["images/spaceport.png", "images/girl.png", "images/item-doll.png", "images/item-address.png", "images/passenger.png", "images/secguard.png", "images/hostess.png", "images/item-book.png"], function() {
 		
 		var bg = Crafty.e("2D, Canvas, Image").image("images/spaceport.png");
 		
@@ -60,10 +67,10 @@ Crafty.scene("Spaceport", function() {
 				.Dialogue(sceneScript.Girl)
 				.animate("happy", 0, 0, 1)
 				.bind('ItemGiven', function() {
-					DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+					DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 					DialogueBar.replaceText("Thanks a lot!");
 					DialogueBar.tween({alpha: 0.0}, 120);
-					this.animate("happy", 1, 1);
+					Girl.animate("happy", 1, 1);
 				});
 		
 		//Passenger character
@@ -73,7 +80,22 @@ Crafty.scene("Spaceport", function() {
 				.animate("hands", 80, -1)
 				.bind("DialogueEnd", function() {
 					addressItem.attr({visible: true});
-				});;
+				});
+		
+		//Hostess character
+		Hostess = Crafty.e("Character, hopen")
+				.Dialogue(sceneScript.Hostess)
+				.animate("blink", 0, 0, 1)
+				.bind("EnterFrame", function(e) {
+					if(e.frame % 70 > 0 && e.frame % 70 < 10) {
+						this.sprite(1, 0, 1, 1);
+					} else {
+						this.sprite(0, 0, 1, 1);
+					}
+				})
+				.bind("DialogueEnd", function() {
+					bookItem.attr({visible: true});
+				});
 				
 		//Guard character
 		SecGuard = Crafty.e("Character, secopen")
@@ -87,7 +109,6 @@ Crafty.scene("Spaceport", function() {
 						this.sprite(0, 0, 1, 1);
 					}
 				});
-
 				
 		//initialise doll item
 		dollItem = Crafty.e("Item, doll")
@@ -106,7 +127,16 @@ Crafty.scene("Spaceport", function() {
 			.bind('Click', function(e) {
 				this.pickupItem();
 			});
-		/*
+			
+		//initialise book item
+		bookItem = Crafty.e("Item, book")
+			.bind('Click', function(e) {
+				this.lookatItem();
+			})
+			.bind('Click', function(e) {
+				this.pickupItem();
+			});
+		
 		
 		/*----- Initialise Entities -----*/
 		
@@ -131,6 +161,13 @@ Crafty.scene("Spaceport", function() {
 			name: "Salik"
 		});
 		
+		Hostess.attr({
+			visible: true,
+			x: 1128,
+			y: 42, 
+			name: "Genn"
+		});
+		
 		SecGuard.attr({
 			visible: true,
 			x: 1301,
@@ -152,6 +189,13 @@ Crafty.scene("Spaceport", function() {
 			visible:false
 		});
 		
+		bookItem.attr({
+			name: "book",
+			x: 1077,
+			y: 104,
+			visible:false
+		});
+		
 		Inventory.attr({
 			visible: false
 		});
@@ -160,7 +204,7 @@ Crafty.scene("Spaceport", function() {
 		spaceportGate = Crafty.e("Door")
 			.attr({name: "spaceport gate"})
 			.makeDoor(13, 19, 97, 246, function() {
-			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 			   DialogueBar.replaceText("I can't go back to where I came from.");
 			   DialogueBar.tween({alpha: 0.0}, 120);
 			});
@@ -169,7 +213,7 @@ Crafty.scene("Spaceport", function() {
 		girlsDoor = Crafty.e("Door")
 			.attr({name: "girls' bathroom door"})
 			.makeDoor(655, 41, 100, 168, function() {
-			   DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+			   DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 			   DialogueBar.replaceText("I can't go in there!");
 			   DialogueBar.tween({alpha: 0.0}, 120);
 			});
@@ -185,7 +229,7 @@ Crafty.scene("Spaceport", function() {
 		carparkDoor = Crafty.e("Door")
 			.attr({name: "spaceport exit"})
 			.makeDoor(1371, 0, 144, 294, function() {
-				//DialogueBar.attr({x: Player.x, y: 0, visible:true, alpha:1.0}); 
+				//DialogueBar.attr({x: Player.x, visible:true, alpha:0.8}); 
 				//DialogueBar.replaceText("He won't let me out");
 				//DialogueBar.tween({alpha: 0.0}, 120);
 			   Crafty.scene("Carpark");
