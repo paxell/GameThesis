@@ -7,7 +7,7 @@ The game is in the style of a point-and-click adventure and aims to address some
 
 The game utilises the Javascript game framework Crafty (https://github.com/craftyjs/Crafty).
 
-The latest game prototype can be found here: http://paxelated.com/anotherworld/
+The latest game prototype can be found here: http://epaxman.com/anotherworld/
 
 Framework
 -----------
@@ -23,4 +23,4 @@ The Framework consists of a few main components:
 BugWorld
 ------------
 
-A progress demo of the game (warts and all) can be found here: http://paxelated.com/bugworld/
+A progress demo of the game (warts and all) will be found here: http://epaxman.com/bugworld/ (note currently inactive)
